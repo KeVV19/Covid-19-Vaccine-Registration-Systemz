@@ -1,13 +1,18 @@
 package com.covid19_vaccine_registration_system;
 
-public class People {
+import java.io.Serializable;
 
-    String username;
-    String password;
+public class People implements Serializable{
 
-    public People(String username, String password){
+    private String username, password;
+    private char gender;
+    private int age;
+
+    public People(String username, String password, char gender, int age){
         this.username = username;
         this.password = password;
+        this.gender = gender;
+        this.age = age;
     }
 
     public void setUsername(String username){
@@ -16,6 +21,8 @@ public class People {
     public void setPassword(String password){
         this.password = password;
     }
+    public void setGender(char gender) { this.gender = gender; }
+    public void setAge (int age) { this.age = age; }
 
     public String getUsername(){
         return username;
@@ -23,4 +30,6 @@ public class People {
     public String getPassword(){
         return password;
     }
+    public char getGender() { return gender; }
+    public int getAge() { return age; }
 }

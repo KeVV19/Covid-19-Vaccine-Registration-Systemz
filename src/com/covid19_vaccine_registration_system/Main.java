@@ -1,59 +1,85 @@
 package com.covid19_vaccine_registration_system;
+//Commenting = CTRL + SHIFT + /
+//Indenting/De-indent Block = TAB / SHIFT + TAB
 
+import java.io.*;
 import java.util.Scanner;
+
 
 public class Main {
 
     private static final Scanner sc = new Scanner(System.in);
 
-/*
-    #Testing only
-    public static void ctznLog(){
-        System.out.println("Citizen Login");
+    //Login Methods
+    public static void citizenLogin(){
+        System.out.println("\nCitizen Login\n--------------");
     }
 
-    public static void nCtznLog(){
-        System.out.println("non-Citizen Login");
+    public static void nonCitizenLogin(){
+        System.out.println("\nNon-Citizen Login\n-----------------");
     }
 
-    public static void admLog(){
-        System.out.println("Admin Login");
+    public static void adminLogin(){
+        System.out.println("\nAdmin Login\n-----------");
     }
-*/
 
-    public static void main(String[] args) {
+    //Register Methods
+    public static void citizenRegis(){
+        System.out.println("\nCitizen Registration\n---------------------");
+    }
+
+    public static void nonCitizenRegis(){
+        System.out.println("\nNon-Citizen Registration\n------------------------");
+    }
+
+    public static void adminRegis(){
+        String specialPass = "wordpass";
+        System.out.println("\nAdmin Registration\n------------------");
+    }
+
+    //Main Method - Done
+    public static void main(String[] args) throws IOException {
 
         System.out.println("\nCovid-19 Vaccine Registration System\n------------------------------------");
-        int inp = -1;
+        int inp = 69;
+
+        String username = "Macel";
+        String password = "Celma";
+        char gender = 'M';
+        int age = 69;
+
+        Admin admin = new Admin(username, password, gender, age);
+
 
         do{
-            System.out.println("Choose an account: \n1. Citizens\n2. non-Citizens\n3. Admin\n0. Exit");
+            System.out.println("Choose an Option: \n1. Login\n2. Register\n0. Exit");
             inp = sc.nextInt();
-        }while(inp<0 || inp>3);
+        }while(inp<0 || inp >2);
 
-/*        switch (inp) {
-            case 1 -> {
-                System.out.println("\nLogging in as Citizen");
-                ctznLog();
+        if (inp == 1) {
+            inp = 69;
+            do {
+                System.out.println("\nChoose an account to Login: \n1. Citizen\n2. non-Citizens\n3. Admin\n0. Exit");
+                inp = sc.nextInt();
+            } while (inp < 0 || inp > 3);
+            switch (inp) {
+                case 1 -> citizenLogin();
+                case 2 -> nonCitizenLogin();
+                case 3 -> adminLogin();
+                case 0 -> System.exit(0);
             }
-            case 2 -> {
-                System.out.println("\nLogging in as non-Citizen");
-                nCtznLog();
+        } else if (inp == 2){
+            inp = 69;
+            do {
+                System.out.println("\nChoose an account to Register: \n1. Citizen\n2. non-Citizens\n3. Admin (Need Special Pass)\n0. Exit");
+                inp = sc.nextInt();
+            } while (inp < 0 || inp > 3);
+            switch (inp) {
+                case 1 -> citizenRegis();
+                case 2 -> nonCitizenRegis();
+                case 3 -> adminRegis();
+                case 0 -> System.exit(0);
             }
-            case 3 -> {
-                System.out.println("\nLogging in as Admin");
-                admLog();
-            }
-            case 0 -> {
-                System.out.println("\n~Exiting Program~");
-                System.exit(0);
-            }
-        }*/
-        People user = new People("marcell", "696969");
-        System.out.println(user.getUsername());
-
-        People user2 = new People("kevin", "123456");
-        System.out.println(user2.getUsername());
-
+        } else{ System.exit(0); }
     }
 }
