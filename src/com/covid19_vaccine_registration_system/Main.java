@@ -51,7 +51,7 @@ public class Main {
         int age = 69;
 
         Admin admin = new Admin(username, password, gender, age);
-
+        System.out.println("Hello World");
         System.out.println(admin.getGender());
 
 do{
