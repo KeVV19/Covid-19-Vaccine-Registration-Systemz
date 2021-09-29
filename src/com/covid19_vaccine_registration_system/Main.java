@@ -10,7 +10,6 @@ public class Main {
 
     private static final Scanner sc = new Scanner(System.in);
 
-    /*
     //Login Methods
     public static void citizenLogin(){
         System.out.println("\nCitizen Login\n--------------");
@@ -37,7 +36,8 @@ public class Main {
         String specialPass = "wordpass";
         System.out.println("\nAdmin Registration\n------------------");
     }
-*/
+
+
 
     //Main Method - Done
     public static void main(String[] args) throws IOException {
@@ -52,14 +52,9 @@ public class Main {
 
         Admin admin = new Admin(username, password, gender, age);
 
-        String filename= "MyFile.txt";
-        FileWriter fw = new FileWriter(filename,true); //the true will append the new data
-        fw.write(admin.getUsername(), admin.getAge(), admin.getGender());//appends the string to the file
-        fw.close();
+        System.out.println(admin.getGender());
 
-
-
-        /*do{
+do{
             System.out.println("Choose an Option: \n1. Login\n2. Register\n0. Exit");
             inp = sc.nextInt();
         }while(inp<0 || inp >2);
@@ -88,7 +83,8 @@ public class Main {
                 case 3 -> adminRegis();
                 case 0 -> System.exit(0);
             }
-        } else{ System.exit(0); }*/
+        } else{ System.exit(0); }
+
     }
 
 }
