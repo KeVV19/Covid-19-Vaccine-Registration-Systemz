@@ -41,7 +41,7 @@ public class Main {
 
     //Main Method - Done
     public static void main(String[] args) throws IOException {
-
+        new Login(); //Coba GUI
         System.out.println("\nCovid-19 Vaccine Registration System\n------------------------------------");
         int inp = 69;
 
