@@ -2,6 +2,8 @@ package com.covid19_vaccine_registration_system;
 //Commenting = CTRL + SHIFT + /
 //Indenting/De-indent Block = TAB / SHIFT + TAB
 
+import org.w3c.dom.ls.LSOutput;
+
 import java.io.*;
 import java.util.Scanner;
 
@@ -41,7 +43,6 @@ public class Main {
 
     //Main Method - Done
     public static void main(String[] args) throws IOException {
-        new Login(); //Coba GUI
         System.out.println("\nCovid-19 Vaccine Registration System\n------------------------------------");
         int inp = 69;
 
