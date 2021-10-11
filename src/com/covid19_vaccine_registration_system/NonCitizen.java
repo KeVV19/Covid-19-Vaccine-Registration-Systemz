@@ -8,4 +8,11 @@ public class NonCitizen extends People {
         super(username, password, gender, age);
         this.passportNum = PassportNum;
     }
+
+    public int getPassportNum() {
+        return passportNum;
+    }
+    public void setPassportNum(int passportNum) {
+        this.passportNum = passportNum;
+    }
 }

@@ -8,4 +8,11 @@ public class Citizen extends People{
         super(username, password, gender, age);
         this.citizenID = citID;
     }
+
+    public int getCitizenID() {
+        return citizenID;
+    }
+    public void setCitizenID(int citizenID) {
+        this.citizenID = citizenID;
+    }
 }

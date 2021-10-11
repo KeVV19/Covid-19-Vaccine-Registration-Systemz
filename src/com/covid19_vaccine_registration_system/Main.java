@@ -43,21 +43,14 @@ public class Main {
 
     //Main Method - Done
     public static void main(String[] args) throws IOException {
-        System.out.println("\nCovid-19 Vaccine Registration System\n------------------------------------");
-        int inp = 69;
 
-        String username = "Macel";
-        String password = "Celma";
-        char gender = 'M';
-        int age = 69;
 
-        Admin admin = new Admin(username, password, gender, age);
-        System.out.println("Hello World");
-        System.out.println(admin.getGender());
+        new Page1_Main();
 
-do{
-            System.out.println("Choose an Option: \n1. Login\n2. Register\n0. Exit");
-            inp = sc.nextInt();
+        /*int inp = 69;
+        do{
+        System.out.println("Choose an Option: \n1. Login\n2. Register\n0. Exit");
+        inp = sc.nextInt();
         }while(inp<0 || inp >2);
 
         if (inp == 1) {
@@ -84,7 +77,7 @@ do{
                 case 3 -> adminRegis();
                 case 0 -> System.exit(0);
             }
-        } else{ System.exit(0); }
+        } else{ System.exit(0); }*/
 
     }
 
