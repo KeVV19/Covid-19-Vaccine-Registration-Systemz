@@ -17,7 +17,7 @@ public class Page3_Login extends JFrame implements ActionListener {
                     "Password: ", password,
             };
 
-            int option = JOptionPane.showConfirmDialog(null, message, "Citizen Register", JOptionPane.OK_CANCEL_OPTION);
+            int option = JOptionPane.showConfirmDialog(null, message, "Citizen Login", JOptionPane.OK_CANCEL_OPTION);
             String usrInput = username.getText();
             String pwInput = password.getText();
 
@@ -26,7 +26,33 @@ public class Page3_Login extends JFrame implements ActionListener {
                 if(Objects.equals(found.getPassword(), pwInput)){
                     Main.clogin = found;
                     setVisible(false);
-                    Main.fourth.setVisible(true);
+                    Main.fourthA.setVisible(true);
+                } else{
+                    JOptionPane.showMessageDialog(back, "Wrong Password");
+                }
+            } else{
+                JOptionPane.showMessageDialog(back, "Username not found");
+            }
+        }
+        else if (e.getSource() == nCitizen) {
+            JTextField username = new JTextField(16);
+            JTextField password = new JPasswordField(16);
+
+            Object[] message = {
+                    "Username: ", username,
+                    "Password: ", password,
+            };
+
+            int option = JOptionPane.showConfirmDialog(null, message, "Non-Citizen Login", JOptionPane.OK_CANCEL_OPTION);
+            String usrInput = username.getText();
+            String pwInput = password.getText();
+
+            NonCitizen found = DataIO.checkingn(usrInput);
+            if(found!=null){
+                if(Objects.equals(found.getPassword(), pwInput)){
+                    Main.nclogin = found;
+                    setVisible(false);
+                    Main.fourthB.setVisible(true);
                 } else{
                     JOptionPane.showMessageDialog(back, "Wrong Password");
                 }
@@ -34,10 +60,32 @@ public class Page3_Login extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(back, "Username not found");
             }
 
-        } else if (e.getSource() == nCitizen) {
+        }
+        else if (e.getSource() == admin) {
+            JTextField username = new JTextField(16);
+            JTextField password = new JPasswordField(16);
 
-        } else if (e.getSource() == admin) {
+            Object[] message = {
+                    "Username: ", username,
+                    "Password: ", password,
+            };
 
+            int option = JOptionPane.showConfirmDialog(null, message, "Admin Login", JOptionPane.OK_CANCEL_OPTION);
+            String usrInput = username.getText();
+            String pwInput = password.getText();
+
+            Admin found = DataIO.checkinga(usrInput);
+            if(found!=null){
+                if(Objects.equals(found.getPassword(), pwInput)){
+                    Main.alogin = found;
+                    setVisible(false);
+                    Main.fifth.setVisible(true);
+                } else{
+                    JOptionPane.showMessageDialog(back, "Wrong Password");
+                }
+            } else{
+                JOptionPane.showMessageDialog(back, "Username not found");
+            }
         } else if (e.getSource() == back) {
             setVisible(false);
             new Page1_Main().setVisible(true);

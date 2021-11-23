@@ -11,7 +11,10 @@ public class Main {
     public static Page1_Main first = new Page1_Main();
     public static Page2_Register second = new Page2_Register();
     public static Page3_Login third = new Page3_Login();
-    public static Page4_Citizen fourth = new Page4_Citizen();
+    public static Page4a_Citizen fourthA = new Page4a_Citizen();
+    public static Page4b_NonCitizen fourthB = new Page4b_NonCitizen();
+    public static Page5_Admin fifth = new Page5_Admin();
+    public static Page5a_people fifthA = new Page5a_people();
     public static Citizen clogin;
     public static NonCitizen nclogin;
     public static Admin alogin;

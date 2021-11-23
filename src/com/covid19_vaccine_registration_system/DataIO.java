@@ -93,7 +93,7 @@ public class DataIO {
                 a.println(ad.getAge());
                 a.println();
             }
-            nc.close();
+            a.close();
 
             /*PrintWriter q = new PrintWriter("booking.txt");
             for (Booking j : allBookings) {

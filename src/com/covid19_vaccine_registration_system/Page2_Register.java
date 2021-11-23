@@ -41,6 +41,7 @@ public class Page2_Register extends JFrame implements ActionListener {
                 Citizen c = new Citizen(nmInput,psInput,gdInput,ageInput,citIDInput);
                 DataIO.allCitizen.add(c);
                 DataIO.write();
+                JOptionPane.showMessageDialog(null, "Record Successfully Saved");
             }else{
                 JOptionPane.showMessageDialog(citizen,"The username has been used!");
             }
@@ -61,7 +62,7 @@ public class Page2_Register extends JFrame implements ActionListener {
                     "Passport ID : ", passportNum
             };
 
-            int option = JOptionPane.showConfirmDialog(null, message, "Admin Register", JOptionPane.OK_CANCEL_OPTION);
+            int option = JOptionPane.showConfirmDialog(null, message, "NonCitizen Register", JOptionPane.OK_CANCEL_OPTION);
             String nmInput = username.getText();
             String psInput = password.getText();
             Gender gdInput = Gender.valueOf(gender.getText());
@@ -73,6 +74,7 @@ public class Page2_Register extends JFrame implements ActionListener {
                 NonCitizen nc = new NonCitizen(nmInput,psInput,gdInput,ageInput,passportInput);
                 DataIO.allNonCitizen.add(nc);
                 DataIO.write();
+                JOptionPane.showMessageDialog(null, "Record Successfully Saved");
             }else{
                 JOptionPane.showMessageDialog(nCitizen,"The username has been used!");
             }
@@ -80,7 +82,6 @@ public class Page2_Register extends JFrame implements ActionListener {
         } else if (e.getSource() == admin) {
             String input = JOptionPane.showInputDialog("Enter special password:");
             if(input.equals("12345")) {
-                setVisible(false);
                 JTextField username = new JTextField(16);
                 JTextField password = new JPasswordField(16);
                 JTextField gender = new JTextField(5);
@@ -104,6 +105,7 @@ public class Page2_Register extends JFrame implements ActionListener {
                     Admin a = new Admin(nmInput,psInput,gdInput,ageInput);
                     DataIO.allAdmins.add(a);
                     DataIO.write();
+                    JOptionPane.showMessageDialog(null, "Record Successfully Saved");
                 }else{
                     JOptionPane.showMessageDialog(admin,"The username has been used!");
                 }
@@ -113,6 +115,7 @@ public class Page2_Register extends JFrame implements ActionListener {
 
         } else if (e.getSource() == back) {
             setVisible(false);
+            Main.first.setVisible(true);
         }
     }
 

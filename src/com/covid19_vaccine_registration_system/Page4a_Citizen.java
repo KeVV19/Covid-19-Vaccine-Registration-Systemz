@@ -5,14 +5,13 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Page4_Citizen extends JFrame implements ActionListener{
+public class Page4a_Citizen extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e){
 
     }
-
     private Button login, register, exit;
 
-    public Page4_Citizen(){
+    public Page4a_Citizen(){
         setSize(250, 100);
         setLocation(700, 200);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
