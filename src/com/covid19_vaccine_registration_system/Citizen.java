@@ -1,10 +1,13 @@
 package com.covid19_vaccine_registration_system;
 
+import java.util.ArrayList;
+
 public class Citizen extends People{
 
-    int citizenID;
+    private int citizenID;
+    private ArrayList<Appointment> myAppointment = new ArrayList<Appointment>();
 
-    public Citizen(String username, String password, char gender, int age, int citID){
+    public Citizen(String username, String password, Gender gender, int age, int citID){
         super(username, password, gender, age);
         this.citizenID = citID;
     }

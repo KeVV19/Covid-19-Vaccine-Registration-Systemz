@@ -32,18 +32,18 @@ public class Page2_Register extends JFrame implements ActionListener {
             int option = JOptionPane.showConfirmDialog(null, message, "Citizen Register", JOptionPane.OK_CANCEL_OPTION);
             String nmInput = username.getText();
             String psInput = password.getText();
-            String gdInput = gender.getText();
-            String ageInput = age.getText();
-            String citIDInput = citID.getText();
+            Gender gdInput = Gender.valueOf(gender.getText());
+            int ageInput = Integer.parseInt(age.getText());
+            int citIDInput = Integer.parseInt(citID.getText());
 
-            /*Citizen found = DataIO.checking(nmInput);
+            Citizen found = DataIO.checking(nmInput);
             if(found == null){
                 Citizen c = new Citizen(nmInput,psInput,gdInput,ageInput,citIDInput);
                 DataIO.allCitizen.add(c);
                 DataIO.write();
             }else{
                 JOptionPane.showMessageDialog(citizen,"The username has been used!");
-            }*/
+            }
 
 
         } else if (e.getSource() == nCitizen) {
@@ -64,18 +64,18 @@ public class Page2_Register extends JFrame implements ActionListener {
             int option = JOptionPane.showConfirmDialog(null, message, "Admin Register", JOptionPane.OK_CANCEL_OPTION);
             String nmInput = username.getText();
             String psInput = password.getText();
-            String gdInput = gender.getText();
-            String ageInput = age.getText();
-            String passportInput = passportNum.getText();
+            Gender gdInput = Gender.valueOf(gender.getText());
+            int ageInput = Integer.parseInt(age.getText());
+            int passportInput = Integer.parseInt(passportNum.getText());
 
-            /*NonCitizen found = DataIO.checking(nmInput);
+            NonCitizen found = DataIO.checkingn(nmInput);
             if(found == null){
-                NonCitizen c = new NonCitizen(nmInput,psInput,gdInput,ageInput,passportInput);
-                DataIO.allNonCitizen.add(c);
+                NonCitizen nc = new NonCitizen(nmInput,psInput,gdInput,ageInput,passportInput);
+                DataIO.allNonCitizen.add(nc);
                 DataIO.write();
             }else{
                 JOptionPane.showMessageDialog(nCitizen,"The username has been used!");
-            }*/
+            }
 
         } else if (e.getSource() == admin) {
             String input = JOptionPane.showInputDialog("Enter special password:");
@@ -96,17 +96,17 @@ public class Page2_Register extends JFrame implements ActionListener {
                 int option = JOptionPane.showConfirmDialog(null, message, "Admin Register", JOptionPane.OK_CANCEL_OPTION);
                 String nmInput = username.getText();
                 String psInput = password.getText();
-                String gdInput = gender.getText();
-                String ageInput = age.getText();
+                Gender gdInput = Gender.valueOf(gender.getText());
+                int ageInput = Integer.parseInt(age.getText());
 
-                /*Admin found = DataIO.checking(nmInput);
+                Admin found = DataIO.checkinga(nmInput);
                 if(found == null){
-                    Admin c = new Admin(nmInput,psInput,gdInput,ageInput);
-                    DataIO.allAdmin.add(c);
+                    Admin a = new Admin(nmInput,psInput,gdInput,ageInput);
+                    DataIO.allAdmins.add(a);
                     DataIO.write();
                 }else{
                     JOptionPane.showMessageDialog(admin,"The username has been used!");
-                }*/
+                }
             }else{
                 JOptionPane.showMessageDialog(admin,"Wrong password!");
             }
@@ -138,6 +138,6 @@ public class Page2_Register extends JFrame implements ActionListener {
         admin.addActionListener(this);
         back.addActionListener(this);
 
-        setVisible(true);
+        /*setVisible(true);*/
     }
 }

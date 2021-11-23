@@ -5,23 +5,14 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Page1_Main extends JFrame implements ActionListener {
-
+public class Page4_Citizen extends JFrame implements ActionListener{
     public void actionPerformed(ActionEvent e){
-        if(e.getSource() == exit){
-            System.exit(0);
-        } else if (e.getSource() == login) {
-            setVisible(false);
-            Main.third.setVisible(true);
-        } else if (e.getSource() == register) {
-            setVisible(false);
-            Main.second.setVisible(true);
-        }
+
     }
 
     private Button login, register, exit;
 
-    public Page1_Main(){
+    public Page4_Citizen(){
         setSize(250, 100);
         setLocation(700, 200);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -38,6 +29,6 @@ public class Page1_Main extends JFrame implements ActionListener {
         login.addActionListener(this);
         exit.addActionListener(this);
 
-        setVisible(true);
+        /*setVisible(true);*/
     }
 }
