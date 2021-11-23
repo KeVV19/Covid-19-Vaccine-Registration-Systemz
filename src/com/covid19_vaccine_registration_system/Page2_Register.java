@@ -21,14 +21,17 @@ public class Page2_Register extends JFrame implements ActionListener {
             JTextField citID = new JTextField(16);
 
             Object[] message = {
-                "Username: ", username,
-                "Password: ", password,
-                "Gender : ", gender,
-                "Age : ", age,
-                "Citizen ID : ", citID
+                    "Username: ", username,
+                    "Password: ", password,
+                    "Gender : ", gender,
+                    "Age : ", age,
+                    "Citizen ID : ", citID
+
             };
 
             int option = JOptionPane.showConfirmDialog(null, message, "Citizen Register", JOptionPane.OK_CANCEL_OPTION);
+            String nmInput = username.getText();
+
 
 
         } else if (e.getSource() == nCitizen) {

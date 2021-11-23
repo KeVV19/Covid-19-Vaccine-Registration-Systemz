@@ -11,6 +11,7 @@ public class Page1_Main extends JFrame implements ActionListener {
         if(e.getSource() == exit){
             System.exit(0);
         } else if (e.getSource() == login) {
+            setVisible(false);
             new Page3_Login();
         } else if (e.getSource() == register) {
             setVisible(false);

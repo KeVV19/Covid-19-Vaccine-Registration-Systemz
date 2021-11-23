@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Objects;
 
 public class Page3_Login extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e){
@@ -18,6 +19,13 @@ public class Page3_Login extends JFrame implements ActionListener {
 
             int option = JOptionPane.showConfirmDialog(null, message, "Citizen Register", JOptionPane.OK_CANCEL_OPTION);
 
+            String usrInput = username.getText();
+            String pwInput = password.getText();
+
+            if (Objects.equals(usrInput, "name") && Objects.equals(pwInput, "password")){
+                JOptionPane.showMessageDialog(null, "Works!");
+            }
+
         } else if (e.getSource() == nCitizen) {
 
         } else if (e.getSource() == admin) {
@@ -31,10 +39,10 @@ public class Page3_Login extends JFrame implements ActionListener {
     private Button citizen, nCitizen, admin, back;
 
     public Page3_Login(){
-        setSize(250, 100);
+        setSize(400, 300);
         setLocation(700, 200);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLayout(new FlowLayout()); //top-bottom, center alignment
+        setLayout(new GridLayout(4, 4, 5, 5));
 
         citizen = new Button("Citizen");
         nCitizen = new Button("Non-Citizen");
