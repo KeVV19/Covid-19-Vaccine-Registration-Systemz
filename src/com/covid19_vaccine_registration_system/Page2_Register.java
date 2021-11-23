@@ -31,16 +31,88 @@ public class Page2_Register extends JFrame implements ActionListener {
 
             int option = JOptionPane.showConfirmDialog(null, message, "Citizen Register", JOptionPane.OK_CANCEL_OPTION);
             String nmInput = username.getText();
+            String psInput = password.getText();
+            String gdInput = gender.getText();
+            String ageInput = age.getText();
+            String citIDInput = citID.getText();
 
+            /*Citizen found = DataIO.checking(nmInput);
+            if(found == null){
+                Citizen c = new Citizen(nmInput,psInput,gdInput,ageInput,citIDInput);
+                DataIO.allCitizen.add(c);
+                DataIO.write();
+            }else{
+                JOptionPane.showMessageDialog(citizen,"The username has been used!");
+            }*/
 
 
         } else if (e.getSource() == nCitizen) {
+            JTextField username = new JTextField(16);
+            JTextField password = new JPasswordField(16);
+            JTextField gender = new JTextField(5);
+            JTextField age = new JTextField(5);
+            JTextField passportNum = new JTextField(16);
+
+            Object[] message = {
+                    "Username: ", username,
+                    "Password: ", password,
+                    "Gender : ", gender,
+                    "Age : ", age,
+                    "Passport ID : ", passportNum
+            };
+
+            int option = JOptionPane.showConfirmDialog(null, message, "Admin Register", JOptionPane.OK_CANCEL_OPTION);
+            String nmInput = username.getText();
+            String psInput = password.getText();
+            String gdInput = gender.getText();
+            String ageInput = age.getText();
+            String passportInput = passportNum.getText();
+
+            /*NonCitizen found = DataIO.checking(nmInput);
+            if(found == null){
+                NonCitizen c = new NonCitizen(nmInput,psInput,gdInput,ageInput,passportInput);
+                DataIO.allNonCitizen.add(c);
+                DataIO.write();
+            }else{
+                JOptionPane.showMessageDialog(nCitizen,"The username has been used!");
+            }*/
 
         } else if (e.getSource() == admin) {
+            String input = JOptionPane.showInputDialog("Enter special password:");
+            if(input.equals("12345")) {
+                setVisible(false);
+                JTextField username = new JTextField(16);
+                JTextField password = new JPasswordField(16);
+                JTextField gender = new JTextField(5);
+                JTextField age = new JTextField(5);
+
+                Object[] message = {
+                        "Username: ", username,
+                        "Password: ", password,
+                        "Gender : ", gender,
+                        "Age : ", age
+                };
+
+                int option = JOptionPane.showConfirmDialog(null, message, "Admin Register", JOptionPane.OK_CANCEL_OPTION);
+                String nmInput = username.getText();
+                String psInput = password.getText();
+                String gdInput = gender.getText();
+                String ageInput = age.getText();
+
+                /*Admin found = DataIO.checking(nmInput);
+                if(found == null){
+                    Admin c = new Admin(nmInput,psInput,gdInput,ageInput);
+                    DataIO.allAdmin.add(c);
+                    DataIO.write();
+                }else{
+                    JOptionPane.showMessageDialog(admin,"The username has been used!");
+                }*/
+            }else{
+                JOptionPane.showMessageDialog(admin,"Wrong password!");
+            }
 
         } else if (e.getSource() == back) {
             setVisible(false);
-            new Page1_Main().setVisible(true);
         }
     }
 
