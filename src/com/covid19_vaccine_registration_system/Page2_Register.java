@@ -30,21 +30,26 @@ public class Page2_Register extends JFrame implements ActionListener {
             };
 
             int option = JOptionPane.showConfirmDialog(null, message, "Citizen Register", JOptionPane.OK_CANCEL_OPTION);
-            String nmInput = username.getText();
-            String psInput = password.getText();
-            Gender gdInput = Gender.valueOf(gender.getText());
-            int ageInput = Integer.parseInt(age.getText());
-            int citIDInput = Integer.parseInt(citID.getText());
+            try{
+                String nmInput = username.getText();
+                String psInput = password.getText();
+                Gender gdInput = Gender.valueOf(gender.getText());
+                int ageInput = Integer.parseInt(age.getText());
+                int citIDInput = Integer.parseInt(citID.getText());
 
-            Citizen found = DataIO.checking(nmInput);
-            if(found == null){
-                Citizen c = new Citizen(nmInput,psInput,gdInput,ageInput,citIDInput);
-                DataIO.allCitizen.add(c);
-                DataIO.write();
-                JOptionPane.showMessageDialog(null, "Record Successfully Saved");
-            }else{
-                JOptionPane.showMessageDialog(citizen,"The username has been used!");
+                Citizen found = DataIO.checking(nmInput);
+                if(found == null){
+                    Citizen c = new Citizen(nmInput,psInput,gdInput,ageInput,citIDInput);
+                    DataIO.allCitizen.add(c);
+                    DataIO.write();
+                    JOptionPane.showMessageDialog(null, "Record Successfully Saved");
+                }else{
+                    JOptionPane.showMessageDialog(citizen,"The username has been used!");
+                }
+            } catch (Exception ex){
+                JOptionPane.showMessageDialog(null, "Incorrect Input, Please Try Again");
             }
+
 
 
         } else if (e.getSource() == nCitizen) {
@@ -103,7 +108,7 @@ public class Page2_Register extends JFrame implements ActionListener {
                 Admin found = DataIO.checkinga(nmInput);
                 if(found == null){
                     Admin a = new Admin(nmInput,psInput,gdInput,ageInput);
-                    DataIO.allAdmins.add(a);
+                    DataIO.allAdmin.add(a);
                     DataIO.write();
                     JOptionPane.showMessageDialog(null, "Record Successfully Saved");
                 }else{
@@ -122,6 +127,7 @@ public class Page2_Register extends JFrame implements ActionListener {
     private Button citizen, nCitizen, admin, back;
 
     public Page2_Register(){
+        setTitle("Register");
         setSize(400, 300);
         setLocation(700, 200);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

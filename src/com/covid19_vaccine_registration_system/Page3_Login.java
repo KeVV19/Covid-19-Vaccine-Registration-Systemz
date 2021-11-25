@@ -21,17 +21,21 @@ public class Page3_Login extends JFrame implements ActionListener {
             String usrInput = username.getText();
             String pwInput = password.getText();
 
-            Citizen found = DataIO.checking(usrInput);
-            if(found!=null){
-                if(Objects.equals(found.getPassword(), pwInput)){
-                    Main.clogin = found;
-                    setVisible(false);
-                    Main.fourthA.setVisible(true);
-                } else{
-                    JOptionPane.showMessageDialog(back, "Wrong Password");
+            if (option == JOptionPane.YES_OPTION) {
+                Citizen found = DataIO.checking(usrInput);
+                if (found != null) {
+                    if (Objects.equals(found.getPassword(), pwInput)) {
+                        Main.clogin = found;
+                        setVisible(false);
+                        Main.fourthA.setVisible(true);
+                    } else {
+                        JOptionPane.showMessageDialog(back, "Wrong Password");
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(back, "Username not found");
                 }
-            } else{
-                JOptionPane.showMessageDialog(back, "Username not found");
+            }else{
+
             }
         }
         else if (e.getSource() == nCitizen) {
@@ -95,6 +99,7 @@ public class Page3_Login extends JFrame implements ActionListener {
     private Button citizen, nCitizen, admin, back;
 
     public Page3_Login(){
+        setTitle("Login");
         setSize(400, 300);
         setLocation(700, 200);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

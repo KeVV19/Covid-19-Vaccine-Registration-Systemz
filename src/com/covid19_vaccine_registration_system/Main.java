@@ -15,6 +15,8 @@ public class Main {
     public static Page4b_NonCitizen fourthB = new Page4b_NonCitizen();
     public static Page5_Admin fifth = new Page5_Admin();
     public static Page5a_people fifthA = new Page5a_people();
+    public static Page5b_appointment fifthB = new Page5b_appointment();
+    public static Page5c_supply fifthC = new Page5c_supply();
     public static Citizen clogin;
     public static NonCitizen nclogin;
     public static Admin alogin;

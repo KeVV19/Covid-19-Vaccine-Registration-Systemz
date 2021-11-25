@@ -20,7 +20,6 @@ public class Appointment {
     public int getId() {
         return id;
     }
-
     public void setId(int id) {
         this.id = id;
     }
@@ -28,7 +27,6 @@ public class Appointment {
     public Centre getCentre() {
         return centre;
     }
-
     public void setCentre(Centre centre) {
         this.centre = centre;
     }
@@ -36,7 +34,6 @@ public class Appointment {
     public Day getDay() {
         return day;
     }
-
     public void setDay(Day day) {
         this.day = day;
     }
@@ -44,7 +41,6 @@ public class Appointment {
     public int getTime() {
         return time;
     }
-
     public void setTime(int time) {
         this.time = time;
     }
@@ -52,7 +48,6 @@ public class Appointment {
     public boolean isVaccinated() {
         return vaccinated;
     }
-
     public void setVaccinated(boolean vaccinated) {
         this.vaccinated = vaccinated;
     }
@@ -60,7 +55,6 @@ public class Appointment {
     public People getOwner() {
         return owner;
     }
-
     public void setOwner(People owner) {
         this.owner = owner;
     }

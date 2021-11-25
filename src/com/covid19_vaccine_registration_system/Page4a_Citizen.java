@@ -5,6 +5,7 @@ import javax.xml.crypto.Data;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class Page4a_Citizen extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e){
@@ -43,7 +44,7 @@ public class Page4a_Citizen extends JFrame implements ActionListener {
                 Main.clogin.setGender(gdInput);
                 Main.clogin.setAge(ageInput);
                 Main.clogin.setCitizenID(citIDInput);
-
+                DataIO.write();
                 JOptionPane.showMessageDialog(profile, "Record Updated");
             }else{
                 JOptionPane.showMessageDialog(profile, "Record Not Updated");

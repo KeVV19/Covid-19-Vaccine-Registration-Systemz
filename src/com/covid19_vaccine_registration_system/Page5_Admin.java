@@ -10,27 +10,40 @@ public class Page5_Admin extends JFrame implements ActionListener {
         if(e.getSource() == people){
             setVisible(false);
             Main.fifthA.setVisible(true);
+        }else if(e.getSource() == appointment){
+            setVisible(false);
+            Main.fifthB.setVisible(true);
+        }else if(e.getSource() == supply){
+            setVisible(false);
+            Main.fifthC.setVisible(true);
+        }else if(e.getSource() == back){
+            setVisible(false);
+            Main.first.setVisible(true);
         }
     }
 
-    private Button people, appointment, supply;
+    private Button people, appointment, supply, back;
 
     public Page5_Admin(){
-        setSize(250, 100);
+        setTitle("Admin Menu");
+        setSize(400, 200);
         setLocation(700, 200);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLayout(new FlowLayout()); //top-bottom, center alignment
+        setLayout(new GridLayout(2, 5, 5, 5)); //top-bottom, center alignment
 
         people = new Button("Manage People");
         appointment = new Button("Manage Appointments");
         supply = new Button("Manage Vaccination Supply");
+        back = new Button("Go Back");
         add(people);
         add(appointment);
         add(supply);
+        add(back);
 
         people.addActionListener(this);
         appointment.addActionListener(this);
         supply.addActionListener(this);
+        back.addActionListener(this);
 
         /*setVisible(true);*/
     }

@@ -1,9 +1,8 @@
 package com.covid19_vaccine_registration_system;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
-public class People implements Serializable{
+public class People{
 
     private String username, password;
     private Gender gender;
