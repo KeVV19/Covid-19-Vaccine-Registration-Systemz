@@ -1,6 +1,8 @@
 package com.covid19_vaccine_registration_system;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -15,6 +17,9 @@ public class DataIO {
 
     public static ArrayList<Admin> allAdmins =
             new ArrayList<Admin>();
+
+    public static ArrayList<Appointment> allAppointment =
+            new ArrayList<Appointment>();
 
     public static void read(){
         try{
@@ -43,19 +48,19 @@ public class DataIO {
                 allNonCitizen.add(ncit);
             }
 
-            /*Scanner sc3 = new Scanner(new File("Appointment.txt"));
-            while(t.hasNext()){
-                int a = Integer.parseInt(t.nextLine());
-                Consultant b = Consultant.valueOf(t.nextLine());
-                Day c = Day.valueOf(t.nextLine());
-                int d = Integer.parseInt(t.nextLine());
-                boolean e = Boolean.parseBoolean(t.nextLine());
-                MyCustomer f = DataIO.checking(t.nextLine());
-                t.nextLine();
-                Booking x = new Booking(a, b, c, d, e, f);
-                allBookings.add(x);
-                f.getMyBookings().add(x);
-            }*/
+            Scanner sc3 = new Scanner(new File("Appointment.txt"));
+            while(sc3.hasNext()){
+                int a = Integer.parseInt(sc3.nextLine());
+                Centre b = Centre.valueOf(sc3.nextLine());
+                Day c = Day.valueOf(sc3.nextLine());
+                int d = Integer.parseInt(sc3.nextLine());
+                boolean e = Boolean.parseBoolean(sc3.nextLine());
+                People f = DataIO.checking(sc3.nextLine());
+                sc3.nextLine();
+                Appointment x = new Appointment(a, b, c, d, e, f);
+                allAppointment.add(x);
+                f.getMyAppointment().add(x);
+            }
         } catch(Exception e){
             System.out.println("Error while reading");
         }
@@ -95,17 +100,17 @@ public class DataIO {
             }
             a.close();
 
-            /*PrintWriter q = new PrintWriter("booking.txt");
-            for (Booking j : allBookings) {
+            PrintWriter q = new PrintWriter("Appointment.txt");
+            for (Appointment j : allAppointment) {
                 q.println(j.getId());
-                q.println(j.getConsultant());
+                q.println(j.getCentre());
                 q.println(j.getDay());
                 q.println(j.getTime());
-                q.println(j.isPaid());
-                q.println(j.getOwner().getName());
+                q.println(j.isVaccinated());
+                q.println(j.getOwner().getUsername());
                 q.println();
             }
-            q.close();*/
+            q.close();
         } catch(Exception e){
             System.out.println("Error while writing");
         }
@@ -139,5 +144,65 @@ public class DataIO {
             }
         }
         return null;
+    }
+
+    /*public static void updateProfile(String newUsername,String newPassword,Gender newGender,Integer newAge,Integer newCitID){
+        String tempFile = "temp.txt";
+        File oldFile = new File("Citizen.txt");
+        File newFile = new File(tempFile);
+        String username = ""; String password = ""; String gender = ""; String age; String citID;
+        try{
+            FileWriter fw = new FileWriter(tempFile,true);
+            BufferedWriter bw = new BufferedWriter(fw);
+            PrintWriter pw = new PrintWriter(bw);
+            Scanner x = new Scanner(new File("Citizen.txt"));
+            x.useDelimiter("(\\n)|;");
+
+            while (x.hasNext()){
+                username = x.next();
+                password = x.next();
+                gender = x.next();
+                age = x.next();
+                citID = x.next();
+                if(username.equals(newUsername)){
+                    pw.println(newUsername + "\n" + newPassword + "\n" + newGender + "\n" + newAge + "\n" + newCitID +"\n");
+                }else{
+                    pw.println(username + "\n" + password + "\n" + gender + "\n" + age + "\n" + citID +"\n");
+                }
+            }
+            x.close();
+            pw.flush();
+            pw.close();
+            oldFile.delete();
+            File dump = new File("Citizen.txt");
+            newFile.renameTo(dump);
+
+        }catch(Exception ex){
+            System.out.println("Error");
+        }
+    }*/
+
+    public static void update(String nmInput, String psInput, Gender gdInput, int ageInput, int citIDInput) {
+        try {
+            Scanner sc = new Scanner(new File("Citizen.txt"));
+            while (sc.hasNext()) {
+                String a = sc.nextLine();
+                String b = sc.nextLine();
+                Gender c = Gender.valueOf(sc.nextLine());
+                int d = Integer.parseInt(sc.nextLine());
+                int e = Integer.parseInt(sc.nextLine());
+                sc.nextLine();
+                if(a.equals(nmInput)){
+                    PrintWriter x = new PrintWriter("Citizen.txt");
+                    Citizen cit = new Citizen(nmInput, psInput, gdInput, ageInput, citIDInput);
+                    allCitizen.add(cit);
+                    x.close();
+                }else{
+                    System.out.println("error");
+                }
+            }
+        }catch (Exception e){
+            System.out.println("Error");
+        }
     }
 }
