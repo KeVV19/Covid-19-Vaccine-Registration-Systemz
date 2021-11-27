@@ -5,10 +5,9 @@ import java.util.ArrayList;
 public class Citizen extends People{
 
     private int citizenID;
-    private ArrayList<Appointment> myAppointment = new ArrayList<Appointment>();
 
-    public Citizen(String username, String password, Gender gender, int age, int vaccinated, int citizenID) {
-        super(username, password, gender, age, vaccinated);
+    public Citizen(String username, String password, Gender gender, int age, int isVaccinated, int citizenID) {
+        super(username, password, gender, age, isVaccinated);
         this.citizenID = citizenID;
     }
 

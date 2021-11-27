@@ -1,9 +1,7 @@
 package com.covid19_vaccine_registration_system;
 
-import javax.xml.crypto.Data;
 import java.io.File;
 import java.io.PrintWriter;
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -107,7 +105,7 @@ public class DataIO {
                 c.println(cit.getPassword());
                 c.println(cit.getGender());
                 c.println(cit.getAge());
-                c.println(cit.getVaccinated());
+                c.println(cit.getIsVaccinated());
                 c.println(cit.getCitizenID());
                 c.println();
             }
@@ -119,7 +117,7 @@ public class DataIO {
                 nc.println(ncit.getPassword());
                 nc.println(ncit.getGender());
                 nc.println(ncit.getAge());
-                nc.println(ncit.getVaccinated());
+                nc.println(ncit.getIsVaccinated());
                 nc.println(ncit.getPassportNum());
                 nc.println();
             }

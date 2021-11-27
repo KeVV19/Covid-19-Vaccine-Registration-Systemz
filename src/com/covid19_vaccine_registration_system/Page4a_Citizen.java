@@ -1,11 +1,9 @@
 package com.covid19_vaccine_registration_system;
 
 import javax.swing.*;
-import javax.xml.crypto.Data;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 public class Page4a_Citizen extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e){
@@ -56,7 +54,7 @@ public class Page4a_Citizen extends JFrame implements ActionListener {
             int size = Main.clogin.getMyAppointment().size();
             
         }else if(e.getSource() == status){
-            int vacNum = Main.clogin.getVaccinated();
+            int vacNum = Main.clogin.getIsVaccinated();
             if(vacNum == 0){
                 JOptionPane.showMessageDialog(appointment, "You haven't been vaccinated!\nPlease make an appointment first!");
             }

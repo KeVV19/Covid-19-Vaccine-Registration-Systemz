@@ -26,7 +26,6 @@ public class Page2_Register extends JFrame implements ActionListener {
                     "Gender : ", gender,
                     "Age : ", age,
                     "Citizen ID : ", citID
-
             };
 
             int option = JOptionPane.showConfirmDialog(null, message, "Citizen Register", JOptionPane.OK_CANCEL_OPTION);
