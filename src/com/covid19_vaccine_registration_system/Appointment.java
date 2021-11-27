@@ -5,16 +5,12 @@ public class Appointment {
     private Centre centre;
     private Day day;
     private int time;
-    private boolean vaccinated;
-    private People owner;
 
-    public Appointment(int id, Centre centre, Day day, int time, boolean vaccinated, People owner) {
+    public Appointment(int id, Centre centre, Day day, int time) {
         this.id = id;
         this.centre = centre;
         this.day = day;
         this.time = time;
-        this.vaccinated = vaccinated;
-        this.owner = owner;
     }
 
     public int getId() {
@@ -43,19 +39,5 @@ public class Appointment {
     }
     public void setTime(int time) {
         this.time = time;
-    }
-
-    public boolean isVaccinated() {
-        return vaccinated;
-    }
-    public void setVaccinated(boolean vaccinated) {
-        this.vaccinated = vaccinated;
-    }
-
-    public People getOwner() {
-        return owner;
-    }
-    public void setOwner(People owner) {
-        this.owner = owner;
     }
 }

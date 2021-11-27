@@ -13,6 +13,7 @@ public class Page4a_Citizen extends JFrame implements ActionListener {
             Main.clogin = null;
             setVisible(false);
             Main.first.setVisible(true);
+
         }else if(e.getSource() == profile){
             JTextField username = new JTextField(Main.clogin.getUsername(),16);
             JTextField password = new JTextField(Main.clogin.getPassword(),16);
@@ -47,49 +48,23 @@ public class Page4a_Citizen extends JFrame implements ActionListener {
                 DataIO.write();
                 JOptionPane.showMessageDialog(profile, "Record Updated");
             }else{
-                JOptionPane.showMessageDialog(profile, "Record Not Updated");
+                JOptionPane.showMessageDialog(profile, "Cancelled");
 
             }
 
         }else if(e.getSource() == appointment){
             int size = Main.clogin.getMyAppointment().size();
-            if(size == 0 || Main.clogin.getMyAppointment().get(size-1).isVaccinated()){
-                try{
-                    Centre[] centres = {Centre.CentreA,Centre.CentreB,Centre.CentreC,Centre.CentreD,Centre.CentreE,Centre.CentreF};
-                    Centre a = (Centre) JOptionPane.showInputDialog(appointment,"Select Centre: ","Centre Selection",JOptionPane.QUESTION_MESSAGE,null,centres,centres[0]);
-                    Day[] days = {Day.Monday,Day.Tuesday,Day.Wednesday,Day.Thursday,Day.Friday,Day.Saturday,Day.Sunday};
-                    Day b = (Day) JOptionPane.showInputDialog(appointment,"Select day","Day Selection",JOptionPane.QUESTION_MESSAGE,null,days,days[0]);
-                    int c = Integer.parseInt(JOptionPane.showInputDialog("Time"));
-                    if(c<9 || c>16){
-                        throw new Exception();
-                    }
-
-                    boolean flag = true;
-                    for(int i=0; i<DataIO.allAppointment.size(); i++){
-                        Appointment j = DataIO.allAppointment.get(i);
-                        if(a.equals(j.getCentre())&&b.equals(j.getDay())&&c==j.getTime()){
-                            flag = false;
-                            break;
-                        }
-                    }
-                    if(flag){
-                        int id = 1 + DataIO.allAppointment.size();
-                        JOptionPane.showMessageDialog(appointment,"Your Appointment ID: "+id);
-                        Appointment x = new Appointment(id,a,b,c,false,Main.clogin);
-                        DataIO.allAppointment.add(x);
-                        DataIO.write();
-                    }
-                    else{
-                        JOptionPane.showMessageDialog(appointment,"Not Available");
-                    }
-                }catch(Exception ex){
-                    JOptionPane.showMessageDialog(appointment,"Wrong input!");
-                }
-            }else{
-                JOptionPane.showMessageDialog(appointment, "You have an unattended appointment!");
-            }
+            
         }else if(e.getSource() == status){
+            int vacNum = Main.clogin.getVaccinated();
+            if(vacNum == 0){
+                JOptionPane.showMessageDialog(appointment, "You haven't been vaccinated!\nPlease make an appointment first!");
+            }
+            else if(vacNum == 1){
 
+            }else {
+
+            }
         }
     }
     private Button profile, appointment, status, logout;

@@ -7,13 +7,15 @@ public class People{
     private String username, password;
     private Gender gender;
     private int age;
+    private int vaccinated;
     private ArrayList<Appointment> myAppointment = new ArrayList<Appointment>();
 
-    public People(String username, String password, Gender gender, int age){
+    public People(String username, String password, Gender gender, int age, int vaccinated){
         this.username = username;
         this.password = password;
         this.gender = gender;
         this.age = age;
+        this.vaccinated = vaccinated;
     }
 
     public void setUsername(String username){
@@ -24,6 +26,10 @@ public class People{
     }
     public void setGender(Gender gender) { this.gender = gender; }
     public void setAge (int age) { this.age = age; }
+    public void setVaccinated(int vaccinated) {
+        this.vaccinated = vaccinated;
+    }
+
 
     public String getUsername(){
         return username;
@@ -33,6 +39,9 @@ public class People{
     }
     public Gender getGender() { return gender; }
     public int getAge() { return age; }
+    public int getVaccinated() {
+        return vaccinated;
+    }
 
     public ArrayList<Appointment> getMyAppointment() {
         return myAppointment;

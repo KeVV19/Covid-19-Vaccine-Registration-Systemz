@@ -39,7 +39,7 @@ public class Page2_Register extends JFrame implements ActionListener {
 
                 Citizen found = DataIO.checking(nmInput);
                 if(found == null){
-                    Citizen c = new Citizen(nmInput,psInput,gdInput,ageInput,citIDInput);
+                    Citizen c = new Citizen(nmInput,psInput,gdInput,ageInput,0,citIDInput);
                     DataIO.allCitizen.add(c);
                     DataIO.write();
                     JOptionPane.showMessageDialog(null, "Record Successfully Saved");
@@ -76,7 +76,7 @@ public class Page2_Register extends JFrame implements ActionListener {
 
             NonCitizen found = DataIO.checkingn(nmInput);
             if(found == null){
-                NonCitizen nc = new NonCitizen(nmInput,psInput,gdInput,ageInput,passportInput);
+                NonCitizen nc = new NonCitizen(nmInput,psInput,gdInput,ageInput,0, passportInput);
                 DataIO.allNonCitizen.add(nc);
                 DataIO.write();
                 JOptionPane.showMessageDialog(null, "Record Successfully Saved");
