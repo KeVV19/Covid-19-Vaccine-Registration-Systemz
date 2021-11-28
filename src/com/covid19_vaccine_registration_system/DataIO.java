@@ -67,30 +67,24 @@ public class DataIO {
             Scanner sc4 = new Scanner(new File("Appointment.txt"));
             while(sc4.hasNext()){
                 int a = Integer.parseInt(sc4.nextLine());
-                Centre b = DataIO.checkingcen(sc4.nextLine());
+                Centre b = Centre.valueOf(sc4.nextLine());
                 Day c = Day.valueOf(sc4.nextLine());
                 int d = Integer.parseInt(sc4.nextLine());
                 sc4.nextLine();
                 Appointment app = new Appointment(a,b,c,d);
                 allAppointment.add(app);
             }
-            Scanner sc5 = new Scanner(new File("Centre.txt"));
-            while(sc5.hasNext()){
-                String a = sc5.nextLine();
-                String b = sc5.nextLine();
-                String c = sc5.nextLine();
-                sc5.nextLine();
-                Centre cen = new Centre(a,b,c);
-                allCentre.add(cen);
-            }
+
             Scanner sc6 = new Scanner(new File("Vaccine.txt"));
             while(sc6.hasNext()){
-                String a = sc6.nextLine();
-                int b = Integer.parseInt(sc6.nextLine());
+                int a = Integer.parseInt(sc6.nextLine());
+                String b = sc6.nextLine();
                 int c = Integer.parseInt(sc6.nextLine());
+                int d = Integer.parseInt(sc6.nextLine());
                 sc6.nextLine();
-                Vaccine vac = new Vaccine(a,b,c);
+                Vaccine vac = new Vaccine(a,b,c,d);
                 allVaccine.add(vac);
+                vac.getCentre().add(Centre.CentreA);
             }
         } catch(Exception e){
             System.out.println("Error while reading");
@@ -143,17 +137,9 @@ public class DataIO {
             }
             ap.close();
 
-            PrintWriter ce = new PrintWriter("Centre.txt");
-            for (Centre cen : allCentre) {
-                ce.println(cen.getName());
-                ce.println(cen.getCity());
-                ce.println(cen.getStreet());
-                ce.println();
-            }
-            ce.close();
-
             PrintWriter v = new PrintWriter("Vaccine.txt");
             for (Vaccine vac : allVaccine) {
+                v.println(vac.getId());
                 v.println(vac.getName());
                 v.println(vac.getQuantity());
                 v.println(vac.getDose());
@@ -196,6 +182,7 @@ public class DataIO {
         }
         return null;
     }
+
     public static Appointment checkingapp(int x) {
         Appointment found = null;
         for(Appointment app : allAppointment){
@@ -205,19 +192,11 @@ public class DataIO {
         }
         return null;
     }
-    public static Centre checkingcen(String x) {
-        Centre found = null;
-        for(Centre cen : allCentre){
-            if(x.equals(cen.getName())){
-                return cen;
-            }
-        }
-        return null;
-    }
-    public static Vaccine checkingvac(String x) {
+
+    public static Vaccine checkingvac(int x) {
         Vaccine found = null;
         for(Vaccine vac : allVaccine){
-            if(x.equals(vac.getName())){
+            if(x == vac.getId()){
                 return vac;
             }
         }

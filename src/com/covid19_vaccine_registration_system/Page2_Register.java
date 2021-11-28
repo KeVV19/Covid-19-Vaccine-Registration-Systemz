@@ -4,8 +4,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Array;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Page2_Register extends JFrame implements ActionListener {
@@ -28,7 +26,7 @@ public class Page2_Register extends JFrame implements ActionListener {
                     "Citizen ID : ", citID
             };
 
-            int option = JOptionPane.showConfirmDialog(null, message, "Citizen Register", JOptionPane.OK_CANCEL_OPTION);
+            int option = JOptionPane.showConfirmDialog(citizen, message, "Citizen Register", JOptionPane.OK_CANCEL_OPTION);
             try{
                 String nmInput = username.getText();
                 String psInput = password.getText();
@@ -41,12 +39,12 @@ public class Page2_Register extends JFrame implements ActionListener {
                     Citizen c = new Citizen(nmInput,psInput,gdInput,ageInput,0,citIDInput);
                     DataIO.allCitizen.add(c);
                     DataIO.write();
-                    JOptionPane.showMessageDialog(null, "Record Successfully Saved");
+                    JOptionPane.showMessageDialog(citizen, "Record Successfully Saved");
                 }else{
                     JOptionPane.showMessageDialog(citizen,"The username has been used!");
                 }
             } catch (Exception ex){
-                JOptionPane.showMessageDialog(null, "Incorrect Input, Please Try Again");
+                JOptionPane.showMessageDialog(citizen, "Incorrect Input, Please Try Again");
             }
 
 

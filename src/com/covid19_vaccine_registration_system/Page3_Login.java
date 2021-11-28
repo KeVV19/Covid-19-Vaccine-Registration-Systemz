@@ -14,7 +14,7 @@ public class Page3_Login extends JFrame implements ActionListener {
 
             Object[] message = {
                     "Username: ", username,
-                    "Password: ", password,
+                    "Password: ", password
             };
 
             int option = JOptionPane.showConfirmDialog(null, message, "Citizen Login", JOptionPane.OK_CANCEL_OPTION);
@@ -44,7 +44,7 @@ public class Page3_Login extends JFrame implements ActionListener {
 
             Object[] message = {
                     "Username: ", username,
-                    "Password: ", password,
+                    "Password: ", password
             };
 
             int option = JOptionPane.showConfirmDialog(null, message, "Non-Citizen Login", JOptionPane.OK_CANCEL_OPTION);
@@ -71,7 +71,7 @@ public class Page3_Login extends JFrame implements ActionListener {
 
             Object[] message = {
                     "Username: ", username,
-                    "Password: ", password,
+                    "Password: ", password
             };
 
             int option = JOptionPane.showConfirmDialog(null, message, "Admin Login", JOptionPane.OK_CANCEL_OPTION);

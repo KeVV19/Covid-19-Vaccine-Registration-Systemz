@@ -54,7 +54,7 @@ public class Page5a_people extends JFrame implements ActionListener {
         view.addActionListener(this);
         search.addActionListener(this);
         back.addActionListener(this);
-        setVisible(true);
+        /*setVisible(true);*/
     }
 
     private void Register(){
