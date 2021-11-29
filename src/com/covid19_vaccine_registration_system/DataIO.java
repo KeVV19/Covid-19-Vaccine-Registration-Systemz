@@ -144,6 +144,7 @@ public class DataIO {
                 v.println(vac.getName());
                 v.println(vac.getQuantity());
                 v.println(vac.getDose());
+                v.println(vac.getCentre());
                 v.println();
             }
             v.close();
