@@ -69,6 +69,7 @@ public class Page4c_CitizenAppointment extends JFrame implements ActionListener 
 
             ArrayList<String> vaclist = new ArrayList<String>();
             DefaultListModel<String> vacname = new DefaultListModel<String>();
+
             JList jl = new JList(vacname);
             jl.setEnabled(false);
             Font font = new Font("Courier", Font.BOLD, 14);
@@ -78,7 +79,7 @@ public class Page4c_CitizenAppointment extends JFrame implements ActionListener 
             for (int i = 0; i < DataIO.allVaccine.size(); i++) {
                 Vaccine vac = DataIO.allVaccine.get(i);
                 if (vac.getCentre().equals(cen)) {
-                    vaclist.add(vac.getName());
+                    vaclist.add(String.valueOf(vac.getName()));
                     vacname.addElement(vaclist.get(i));
                 } else {
                     flag = false;
