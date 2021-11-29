@@ -23,6 +23,7 @@ public class Main {
     public static NonCitizen nclogin;
     public static Admin alogin;
     public static Appointment appointment;
+    public static Vaccine vaccine;
 
     public static void main(String[] args) throws IOException {
         DataIO.read();

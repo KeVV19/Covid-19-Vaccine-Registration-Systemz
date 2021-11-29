@@ -58,7 +58,7 @@ public class Page5b_appointment extends JFrame implements ActionListener {
         view.addActionListener(this);
         search.addActionListener(this);
         back.addActionListener(this);
-        /*setVisible(true);*/
+        setVisible(true);
     }
 
     private void Add(){
@@ -205,7 +205,6 @@ public class Page5b_appointment extends JFrame implements ActionListener {
                 setVisible(true);
             }
         });
-
     }
     private void Search(){
         Appointment found = null;
