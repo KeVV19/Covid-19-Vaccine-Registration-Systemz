@@ -76,7 +76,7 @@ public class Page4a_Citizen extends JFrame implements ActionListener {
 
     public Page4a_Citizen(){
         setSize(250, 100);
-        setLocation(700, 200);
+        setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new FlowLayout()); //top-bottom, center alignment
 
@@ -135,7 +135,7 @@ public class Page4a_Citizen extends JFrame implements ActionListener {
                             boolean flag = true;
                             for(int i = 0; i < DataIO.allVaccine.size(); i++){
                                 Vaccine vac = DataIO.allVaccine.get(i);
-                                if(vac.getCentre().contains(a)) {
+                                if(vac.getCentre().equals(a)) {
                                     vaclist.add(vac.getName());
                                     comboBox.addItem(vaclist.get(i));
                                 }else{

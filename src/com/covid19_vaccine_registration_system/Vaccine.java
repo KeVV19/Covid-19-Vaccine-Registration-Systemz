@@ -7,13 +7,15 @@ public class Vaccine {
     private String name;
     private int quantity;
     private int dose;
-    private ArrayList<Centre> centres = new ArrayList<Centre>();
+    private Centre centre;
+    /*private ArrayList<Centre> centres = new ArrayList<Centre>();*/
 
-    public Vaccine(int id, String name, int quantity, int dose) {
+    public Vaccine(int id, String name, int quantity, int dose, Centre centre) {
         this.id = id;
         this.name = name;
         this.quantity = quantity;
         this.dose = dose;
+        this. centre = centre;
     }
 
     public int getId() {
@@ -44,10 +46,17 @@ public class Vaccine {
         this.dose = dose;
     }
 
-    public ArrayList<Centre> getCentre() {
-        return centres;
+    public Centre getCentre() {
+        return centre;
+    }
+    public void setCentre(Centre centre) {
+        this.centre = centre;
+    }
+
+    /*public ArrayList<Centre> getCentre() {
+    return centres;
     }
     public void setCentre(ArrayList<Centre> centre) {
         this.centres = centre;
-    }
+    }*/
 }

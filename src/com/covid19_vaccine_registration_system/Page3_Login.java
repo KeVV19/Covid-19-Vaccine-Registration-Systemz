@@ -101,7 +101,7 @@ public class Page3_Login extends JFrame implements ActionListener {
     public Page3_Login(){
         setTitle("Login");
         setSize(400, 300);
-        setLocation(700, 200);
+        setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new GridLayout(4, 4, 5, 5));
 

@@ -20,6 +20,7 @@ public class Main {
     public static Citizen clogin;
     public static NonCitizen nclogin;
     public static Admin alogin;
+    public static Appointment appointment;
 
     public static void main(String[] args) throws IOException {
         DataIO.read();

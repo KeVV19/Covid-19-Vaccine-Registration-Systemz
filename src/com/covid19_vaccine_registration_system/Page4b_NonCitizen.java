@@ -13,7 +13,7 @@ public class Page4b_NonCitizen extends JFrame implements ActionListener {
 
     public Page4b_NonCitizen(){
         setSize(250, 100);
-        setLocation(700, 200);
+        setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new FlowLayout()); //top-bottom, center alignment
 

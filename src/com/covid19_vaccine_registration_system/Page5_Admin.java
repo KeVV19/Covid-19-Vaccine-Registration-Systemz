@@ -27,7 +27,7 @@ public class Page5_Admin extends JFrame implements ActionListener {
     public Page5_Admin(){
         setTitle("Admin Menu");
         setSize(400, 200);
-        setLocation(700, 200);
+        setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new GridLayout(2, 5, 5, 5)); //top-bottom, center alignment
 

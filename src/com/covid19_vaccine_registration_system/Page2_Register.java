@@ -126,7 +126,7 @@ public class Page2_Register extends JFrame implements ActionListener {
     public Page2_Register(){
         setTitle("Register");
         setSize(400, 300);
-        setLocation(700, 200);
+        setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new GridLayout(4, 4, 5, 5)); //top-bottom, center alignment
 

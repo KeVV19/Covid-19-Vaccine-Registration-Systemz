@@ -75,16 +75,17 @@ public class DataIO {
                 allAppointment.add(app);
             }
 
-            Scanner sc6 = new Scanner(new File("Vaccine.txt"));
-            while(sc6.hasNext()){
-                int a = Integer.parseInt(sc6.nextLine());
-                String b = sc6.nextLine();
-                int c = Integer.parseInt(sc6.nextLine());
-                int d = Integer.parseInt(sc6.nextLine());
-                sc6.nextLine();
-                Vaccine vac = new Vaccine(a,b,c,d);
+            Scanner sc5 = new Scanner(new File("Vaccine.txt"));
+            while(sc5.hasNext()){
+                int a = Integer.parseInt(sc5.nextLine());
+                String b = sc5.nextLine();
+                int c = Integer.parseInt(sc5.nextLine());
+                int d = Integer.parseInt(sc5.nextLine());
+                Centre e = Centre.valueOf(sc5.nextLine());
+                sc5.nextLine();
+                Vaccine vac = new Vaccine(a,b,c,d,e);
                 allVaccine.add(vac);
-                vac.getCentre().add(Centre.CentreA);
+                /*vac.getCentre().add(Centre.CentreA);*/
             }
         } catch(Exception e){
             System.out.println("Error while reading");
