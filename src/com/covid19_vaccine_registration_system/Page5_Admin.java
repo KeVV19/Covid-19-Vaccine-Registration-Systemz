@@ -22,7 +22,7 @@ public class Page5_Admin extends JFrame implements ActionListener {
         }
     }
 
-    private Button people, appointment, supply, back;
+    private Button people, appointment, supply, report, back;
 
     public Page5_Admin(){
         setTitle("Admin Menu");
@@ -34,7 +34,9 @@ public class Page5_Admin extends JFrame implements ActionListener {
         people = new Button("Manage People");
         appointment = new Button("Manage Appointments");
         supply = new Button("Manage Vaccination Supply");
+        report = new Button("Produce Report");
         back = new Button("Go Back");
+
         add(people);
         add(appointment);
         add(supply);

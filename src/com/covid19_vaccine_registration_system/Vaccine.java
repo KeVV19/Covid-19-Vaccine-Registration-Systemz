@@ -4,13 +4,13 @@ import java.util.ArrayList;
 
 public class Vaccine {
     private int id;
-    private String name;
+    private VaccineName name;
     private int quantity;
     private int dose;
     private Centre centre;
     /*private ArrayList<Centre> centres = new ArrayList<Centre>();*/
 
-    public Vaccine(int id, String name, int quantity, int dose, Centre centre) {
+    public Vaccine(int id, VaccineName name, int quantity, int dose, Centre centre) {
         this.id = id;
         this.name = name;
         this.quantity = quantity;
@@ -25,10 +25,10 @@ public class Vaccine {
         this.id = id;
     }
 
-    public String getName() {
+    public VaccineName getName() {
         return name;
     }
-    public void setName(String name) {
+    public void setName(VaccineName name) {
         this.name = name;
     }
 

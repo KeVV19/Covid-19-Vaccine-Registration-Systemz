@@ -8,6 +8,7 @@ public class People{
     private Gender gender;
     private int age;
     private int isVaccinated;
+    private ArrayList<VaccineName> vaccines = new ArrayList<VaccineName>();
     private ArrayList<Appointment> myAppointment = new ArrayList<Appointment>();
 
     public People(String username, String password, Gender gender, int age, int isVaccinated){
@@ -43,6 +44,13 @@ public class People{
 
     public int getIsVaccinated() {
         return isVaccinated;
+    }
+
+    public ArrayList<VaccineName> getVaccines() {
+        return vaccines;
+    }
+    public void setVaccines(ArrayList<VaccineName> vaccines) {
+        this.vaccines = vaccines;
     }
 
     public ArrayList<Appointment> getMyAppointment() {
