@@ -2,10 +2,12 @@ package com.covid19_vaccine_registration_system;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class Page5a_people extends JFrame implements ActionListener {
@@ -185,42 +187,45 @@ public class Page5a_people extends JFrame implements ActionListener {
                     if (usrInput != null) {
                         found = DataIO.checking(usrInput);
                         Main.clogin = found;
-                    }
-                    JTextField username = new JTextField(Main.clogin.getUsername(),16);
-                    JTextField password = new JTextField(Main.clogin.getPassword(),16);
-                    JTextField gender = new JTextField(String.valueOf(Main.clogin.getGender()),5);
-                    JTextField age = new JTextField(Integer.toString(Main.clogin.getAge()),5);
-                    JTextField vaccine = new JTextField(Integer.toString(Main.clogin.getIsVaccinated()), 5);
-                    JTextField citID = new JTextField(Integer.toString(Main.clogin.getCitizenID()),16);
 
-                    username.setEditable(false);
+                        JTextField username = new JTextField(Main.clogin.getUsername(),16);
+                        JTextField password = new JTextField(Main.clogin.getPassword(),16);
+                        Gender[] genders = {Gender.Male, Gender.Female};
+                        JComboBox gender = new JComboBox(genders);
+                        gender.setSelectedItem(Main.clogin.getGender());
+                        JTextField age = new JTextField(Integer.toString(Main.clogin.getAge()),5);
+                        JTextField vaccine = new JTextField(Integer.toString(Main.clogin.getIsVaccinated()), 5);
+                        JTextField citID = new JTextField(Integer.toString(Main.clogin.getCitizenID()),16);
 
-                    Object[] message = {
-                            "Username: ", username,
-                            "Password: ", password,
-                            "Gender : ", gender,
-                            "Age : ", age,
-                            "Vaccines Received : ", vaccine,
-                            "Citizen ID : ", citID
-                    };
+                        username.setEditable(false);
 
-                    int option = JOptionPane.showConfirmDialog(null, message, "Profile Update", JOptionPane.OK_CANCEL_OPTION);
-                    String psInput = password.getText();
-                    Gender gdInput = Gender.valueOf(gender.getText());
-                    int ageInput = Integer.parseInt(age.getText());
-                    int vacInput = Integer.parseInt(vaccine.getText());
-                    int citIDInput = Integer.parseInt(citID.getText());
+                        Object[] message = {
+                                "Username: ", username,
+                                "Password: ", password,
+                                "Gender : ", gender,
+                                "Age : ", age,
+                                "Vaccines Received : ", vaccine,
+                                "Citizen ID : ", citID
+                        };
 
-                    if(option == JOptionPane.OK_OPTION && found != null){
-                        Main.clogin.setPassword(psInput);
-                        Main.clogin.setGender(gdInput);
-                        Main.clogin.setAge(ageInput);
-                        Main.clogin.setIsVaccinated(vacInput);
-                        Main.clogin.setCitizenID(citIDInput);
-                        DataIO.write();
-                        JOptionPane.showMessageDialog(null, "Record Updated");
-                    }else{
-                        JOptionPane.showMessageDialog(null, "Record Not Updated");
+                        int option = JOptionPane.showConfirmDialog(citizenMod, message, "Profile Update", JOptionPane.OK_CANCEL_OPTION);
+                        String psInput = password.getText();
+                        Gender gdInput = (Gender) gender.getSelectedItem();
+                        int ageInput = Integer.parseInt(age.getText());
+                        int vacInput = Integer.parseInt(vaccine.getText());
+                        int citIDInput = Integer.parseInt(citID.getText());
+
+                        if(option == JOptionPane.OK_OPTION && found != null){
+                            Main.clogin.setPassword(psInput);
+                            Main.clogin.setGender(gdInput);
+                            Main.clogin.setAge(ageInput);
+                            Main.clogin.setIsVaccinated(vacInput);
+                            Main.clogin.setCitizenID(citIDInput);
+                            DataIO.write();
+                            JOptionPane.showMessageDialog(citizenMod, "Record Updated");
+                        }else{
+                            JOptionPane.showMessageDialog(citizenMod, "Record Not Updated");
+                        }
                     }
                 }catch (Exception a){
                     JOptionPane.showMessageDialog(citizenMod, "Please Try Again");
@@ -232,52 +237,54 @@ public class Page5a_people extends JFrame implements ActionListener {
             public void actionPerformed(ActionEvent e) {
                 NonCitizen found = null;
                 try {
-                    String usrInput = JOptionPane.showInputDialog(citizenMod, "Enter Non-Citizen Username: ");
+                    String usrInput = JOptionPane.showInputDialog(nCitizenMod, "Enter Non-Citizen Username: ");
                     if (usrInput != null) {
                         found = DataIO.checkingn(usrInput);
                         Main.nclogin = found;
+
+                        JTextField username = new JTextField(Main.nclogin.getUsername(),16);
+                        JTextField password = new JTextField(Main.nclogin.getPassword(),16);
+                        Gender[] genders = {Gender.Male, Gender.Female};
+                        JComboBox gender = new JComboBox(genders);
+                        gender.setSelectedItem(Main.clogin.getGender());
+                        JTextField age = new JTextField(Integer.toString(Main.nclogin.getAge()),5);
+                        JTextField vaccine = new JTextField(Integer.toString(Main.clogin.getIsVaccinated()), 5);
+                        JTextField passportNum = new JTextField(Integer.toString(Main.nclogin.getPassportNum()),16);
+
+                        username.setEditable(false);
+
+                        Object[] message = {
+                                "Username: ", username,
+                                "Password: ", password,
+                                "Gender : ", gender,
+                                "Age : ", age,
+                                "Vaccines Received : ", vaccine,
+                                "Passport ID : ", passportNum,
+                        };
+
+                        int option = JOptionPane.showConfirmDialog(nCitizenMod, message, "Profile Update", JOptionPane.OK_CANCEL_OPTION);
+                        String nmInput = username.getText();
+                        String psInput = password.getText();
+                        Gender gdInput = (Gender) gender.getSelectedItem();
+                        int ageInput = Integer.parseInt(age.getText());
+                        int vacInput = Integer.parseInt(vaccine.getText());
+                        int passportInput = Integer.parseInt(passportNum.getText());
+
+                        if(option == JOptionPane.OK_OPTION && found != null){
+                            Main.nclogin.setUsername(nmInput);
+                            Main.nclogin.setPassword(psInput);
+                            Main.nclogin.setGender(gdInput);
+                            Main.nclogin.setAge(ageInput);
+                            Main.nclogin.setIsVaccinated(vacInput);
+                            Main.nclogin.setPassportNum(passportInput);
+                            DataIO.write();
+                            JOptionPane.showMessageDialog(nCitizenMod, "Record Updated");
+                        }else {
+                            JOptionPane.showMessageDialog(nCitizenMod, "Record Not Updated");
+                        }
                     }
                 }catch (Exception a){
-                    JOptionPane.showMessageDialog(citizenMod, "Please Try Again");
-                }
-                JTextField username = new JTextField(Main.nclogin.getUsername(),16);
-                JTextField password = new JTextField(Main.nclogin.getPassword(),16);
-                JTextField gender = new JTextField(String.valueOf(Main.nclogin.getGender()),5);
-                JTextField age = new JTextField(Integer.toString(Main.nclogin.getAge()),5);
-                JTextField vaccine = new JTextField(Integer.toString(Main.clogin.getIsVaccinated()), 5);
-                JTextField passportNum = new JTextField(Integer.toString(Main.nclogin.getPassportNum()),16);
-
-                username.setEditable(false);
-
-                Object[] message = {
-                        "Username: ", username,
-                        "Password: ", password,
-                        "Gender : ", gender,
-                        "Age : ", age,
-                        "Vaccines Received : ", vaccine,
-                        "Passport ID : ", passportNum,
-                };
-
-                int option = JOptionPane.showConfirmDialog(null, message, "Profile Update", JOptionPane.OK_CANCEL_OPTION);
-                String nmInput = username.getText();
-                String psInput = password.getText();
-                Gender gdInput = Gender.valueOf(gender.getText());
-                int ageInput = Integer.parseInt(age.getText());
-                int vacInput = Integer.parseInt(vaccine.getText());
-                int passportInput = Integer.parseInt(passportNum.getText());
-
-                if(option == JOptionPane.OK_OPTION && found != null){
-                    Main.nclogin.setUsername(nmInput);
-                    Main.nclogin.setPassword(psInput);
-                    Main.nclogin.setGender(gdInput);
-                    Main.nclogin.setAge(ageInput);
-                    Main.nclogin.setIsVaccinated(vacInput);
-                    Main.nclogin.setPassportNum(passportInput);
-                    DataIO.write();
-                    JOptionPane.showMessageDialog(null, "Record Updated");
-                }else{
-                    JOptionPane.showMessageDialog(null, "Record Not Updated");
-
+                    JOptionPane.showMessageDialog(nCitizenMod, "Please Try Again");
                 }
             }
         });
@@ -326,7 +333,7 @@ public class Page5a_people extends JFrame implements ActionListener {
                 String[][] data = new String[size][6];
                 for (int i = 0; i < size; i++) {
                     Citizen a = DataIO.allCitizen.get(i);
-                    data[i][0] = a.getUsername();
+                    data[i][0] = "" + a.getUsername();
                     data[i][1] = "" + a.getPassword();
                     data[i][2] = "" + a.getGender();
                     data[i][3] = "" + a.getAge();
@@ -335,7 +342,17 @@ public class Page5a_people extends JFrame implements ActionListener {
                 }
                 DefaultTableModel z = new DefaultTableModel(data, columnNames);
                 JTable z1 = new JTable(z);
-                z1.setEnabled(false);
+                z1.setEnabled(false); //Disable Editing
+                z1.getTableHeader().setReorderingAllowed(false); //Disable Row Reordering
+
+                TableRowSorter sorter = new TableRowSorter(z1.getModel()); //sort
+                z1.setRowSorter(sorter);
+                List<RowSorter.SortKey> sortKeys = new ArrayList<>();
+                int index = 0;
+                sortKeys.add(new RowSorter.SortKey(index,SortOrder.ASCENDING));
+                sorter.setSortKeys(sortKeys);
+                sorter.sort();
+
                 JScrollPane sp = new JScrollPane(z1);
                 y2.add(sp);
 
@@ -372,11 +389,11 @@ public class Page5a_people extends JFrame implements ActionListener {
                 Panel y3 = new Panel();
                 y3.setLayout(new FlowLayout());
 
-                String[] columnNames = {"Name", "Password", "Gender", "Age", "Vaccinated Amount", "Passpord Number"};
+                String[] columnNames = {"Name", "Password", "Gender", "Age", "Vaccinated Amount", "Passport Number"};
                 String[][] data = new String[size][6];
                 for (int i = 0; i < size; i++) {
                     NonCitizen a = DataIO.allNonCitizen.get(i);
-                    data[i][0] = a.getUsername();
+                    data[i][0] = "" + a.getUsername();
                     data[i][1] = "" + a.getPassword();
                     data[i][2] = "" + a.getGender();
                     data[i][3] = "" + a.getAge();
@@ -385,7 +402,17 @@ public class Page5a_people extends JFrame implements ActionListener {
                 }
                 DefaultTableModel z = new DefaultTableModel(data, columnNames);
                 JTable z1 = new JTable(z);
-                z1.setEnabled(false);
+                z1.setEnabled(false); //Disable Editing
+                z1.getTableHeader().setReorderingAllowed(false); //Disable Row Reordering
+
+                TableRowSorter sorter = new TableRowSorter(z1.getModel()); //sort
+                z1.setRowSorter(sorter);
+                List<RowSorter.SortKey> sortKeys = new ArrayList<>();
+                int index = 0;
+                sortKeys.add(new RowSorter.SortKey(index,SortOrder.ASCENDING));
+                sorter.setSortKeys(sortKeys);
+                sorter.sort();
+
                 JScrollPane sp = new JScrollPane(z1);
                 y2.add(sp);
 

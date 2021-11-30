@@ -3,12 +3,15 @@ package com.covid19_vaccine_registration_system;
 import javax.swing.*;
 import javax.swing.plaf.synth.SynthOptionPaneUI;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 import javax.xml.crypto.Data;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.AreaAveragingScaleFilter;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Page4c_CitizenAppointment extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
@@ -135,10 +138,21 @@ public class Page4c_CitizenAppointment extends JFrame implements ActionListener 
 
                 DefaultTableModel z = new DefaultTableModel(data, columnNames);
 
+                /*TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(z);
+                sorter.ad*/
+
                 JTable z1 = new JTable(z);
                 z1.setEnabled(false);  //Disable Table Editing
-                z1.setRowSelectionAllowed(true);
-                z1.setColumnSelectionAllowed(false);
+                z1.getTableHeader().setReorderingAllowed(false); //Disable Row Reordering
+
+                TableRowSorter sorter = new TableRowSorter(z1.getModel()); //sort
+                z1.setRowSorter(sorter);
+                List<RowSorter.SortKey> sortKeys = new ArrayList<>();
+                int index = 0;
+                sortKeys.add(new RowSorter.SortKey(index,SortOrder.ASCENDING));
+                sorter.setSortKeys(sortKeys);
+                sorter.sort();
+
                 JScrollPane sp = new JScrollPane(z1);
                 y2.add(sp);
 
