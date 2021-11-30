@@ -75,13 +75,12 @@ public class Page5a_people extends JFrame implements ActionListener {
         citizenReg.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JTextField username = new JTextField(Main.clogin.getUsername(),16);
-                JTextField password = new JTextField(Main.clogin.getPassword(),16);
-                JTextField gender = new JTextField(String.valueOf(Main.clogin.getGender()),5);
-                JTextField age = new JTextField(Integer.toString(Main.clogin.getAge()),5);
-                JTextField citID = new JTextField(Integer.toString(Main.clogin.getCitizenID()),16);
-
-                username.setEditable(false);
+                JTextField username = new JTextField(16);
+                JTextField password = new JPasswordField(16);
+                Gender[] genders = {Gender.Male, Gender.Female};
+                JComboBox gender = new JComboBox(genders);
+                JTextField age = new JTextField(5);
+                JTextField citID = new JTextField(16);
 
                 Object[] message = {
                         "Username: ", username,
@@ -91,21 +90,25 @@ public class Page5a_people extends JFrame implements ActionListener {
                         "Citizen ID : ", citID
                 };
 
-                int option = JOptionPane.showConfirmDialog(null, message, "Citizen Register", JOptionPane.OK_CANCEL_OPTION);
-                String nmInput = username.getText();
-                String psInput = password.getText();
-                Gender gdInput = Gender.valueOf(gender.getText());
-                int ageInput = Integer.parseInt(age.getText());
-                int citIdInp = Integer.parseInt(citID.getText());
+                int option = JOptionPane.showConfirmDialog(citizenReg, message, "Citizen Register", JOptionPane.OK_CANCEL_OPTION);
+                if(option == JOptionPane.OK_OPTION) {
+                    String nmInput = username.getText();
+                    String psInput = password.getText();
+                    Gender gdInput = (Gender) gender.getSelectedItem();
+                    int ageInput = Integer.parseInt(age.getText());
+                    int citIdInp = Integer.parseInt(citID.getText());
 
-                Citizen found = DataIO.checking(nmInput);
-                if(found == null){
-                    Citizen c = new Citizen(nmInput,psInput,gdInput,ageInput,0, citIdInp);
-                    DataIO.allCitizen.add(c);
-                    DataIO.write();
-                    JOptionPane.showMessageDialog(null, "Record Successfully Saved");
+                    Citizen found = DataIO.checking(nmInput);
+                    if (found == null) {
+                        Citizen c = new Citizen(nmInput, psInput, gdInput, ageInput, 0, citIdInp);
+                        DataIO.allCitizen.add(c);
+                        DataIO.write();
+                        JOptionPane.showMessageDialog(citizenReg, "Record Successfully Saved");
+                    } else {
+                        JOptionPane.showMessageDialog(citizenReg, "The username has been used!");
+                    }
                 }else{
-                    JOptionPane.showMessageDialog(null,"The username has been used!");
+                    JOptionPane.showMessageDialog(citizenReg, "Canceled");
                 }
             }
         });
@@ -114,7 +117,8 @@ public class Page5a_people extends JFrame implements ActionListener {
             public void actionPerformed(ActionEvent e) {
                 JTextField username = new JTextField(16);
                 JTextField password = new JPasswordField(16);
-                JTextField gender = new JTextField(5);
+                Gender[] genders = {Gender.Male, Gender.Female};
+                JComboBox gender = new JComboBox(genders);
                 JTextField age = new JTextField(5);
                 JTextField passportNum = new JTextField(16);
 
@@ -127,20 +131,24 @@ public class Page5a_people extends JFrame implements ActionListener {
                 };
 
                 int option = JOptionPane.showConfirmDialog(null, message, "NonCitizen Register", JOptionPane.OK_CANCEL_OPTION);
-                String nmInput = username.getText();
-                String psInput = password.getText();
-                Gender gdInput = Gender.valueOf(gender.getText());
-                int ageInput = Integer.parseInt(age.getText());
-                int passportInput = Integer.parseInt(passportNum.getText());
+                if(option == JOptionPane.OK_OPTION) {
+                    String nmInput = username.getText();
+                    String psInput = password.getText();
+                    Gender gdInput = (Gender) gender.getSelectedItem();
+                    int ageInput = Integer.parseInt(age.getText());
+                    int passportInput = Integer.parseInt(passportNum.getText());
 
-                NonCitizen found = DataIO.checkingn(nmInput);
-                if(found == null){
-                    NonCitizen nc = new NonCitizen(nmInput,psInput,gdInput,ageInput,0, passportInput);
-                    DataIO.allNonCitizen.add(nc);
-                    DataIO.write();
-                    JOptionPane.showMessageDialog(null, "Record Successfully Saved");
+                    NonCitizen found = DataIO.checkingn(nmInput);
+                    if (found == null) {
+                        NonCitizen nc = new NonCitizen(nmInput, psInput, gdInput, ageInput, 0, passportInput);
+                        DataIO.allNonCitizen.add(nc);
+                        DataIO.write();
+                        JOptionPane.showMessageDialog(nCitizenReg, "Record Successfully Saved");
+                    } else {
+                        JOptionPane.showMessageDialog(nCitizenReg, "The username has been used!");
+                    }
                 }else{
-                    JOptionPane.showMessageDialog(null,"The username has been used!");
+                    JOptionPane.showMessageDialog(nCitizenReg, "Canceled");
                 }
             }
         });
@@ -430,33 +438,33 @@ public class Page5a_people extends JFrame implements ActionListener {
                     if (usrInput != null) {
                         found = DataIO.checking(usrInput);
                         Main.clogin = found;
+
+                        JTextField username = new JTextField(Main.clogin.getUsername(),16);
+                        JTextField password = new JTextField(Main.clogin.getPassword(),16);
+                        JTextField gender = new JTextField(String.valueOf(Main.clogin.getGender()),5);
+                        JTextField age = new JTextField(Integer.toString(Main.clogin.getAge()),5);
+                        JTextField vaccine = new JTextField(Integer.toString(Main.clogin.getIsVaccinated()), 5);
+                        JTextField citID = new JTextField(Integer.toString(Main.clogin.getCitizenID()),16);
+
+                        Object[] message = {
+                                "Username: ", username,
+                                "Password: ", password,
+                                "Gender : ", gender,
+                                "Age : ", age,
+                                "Vaccines Received : ", vaccine,
+                                "Citizen ID : ", citID
+                        };
+                        username.setEditable(false);
+                        password.setEditable(false);
+                        gender.setEditable(false);
+                        age.setEditable(false);
+                        vaccine.setEditable(false);
+                        citID.setEditable(false);
+                        JOptionPane.showMessageDialog(citizenSearch, message);
                     }
                 }catch (Exception a){
                     JOptionPane.showMessageDialog(citizenSearch, "Please Try Again");
                 }
-
-                JTextField username = new JTextField(Main.clogin.getUsername(),16);
-                JTextField password = new JTextField(Main.clogin.getPassword(),16);
-                JTextField gender = new JTextField(String.valueOf(Main.clogin.getGender()),5);
-                JTextField age = new JTextField(Integer.toString(Main.clogin.getAge()),5);
-                JTextField vaccine = new JTextField(Integer.toString(Main.clogin.getIsVaccinated()), 5);
-                JTextField citID = new JTextField(Integer.toString(Main.clogin.getCitizenID()),16);
-
-                Object[] message = {
-                        "Username: ", username,
-                        "Password: ", password,
-                        "Gender : ", gender,
-                        "Age : ", age,
-                        "Vaccines Received : ", vaccine,
-                        "Citizen ID : ", citID
-                };
-                username.setEditable(false);
-                password.setEditable(false);
-                gender.setEditable(false);
-                age.setEditable(false);
-                vaccine.setEditable(false);
-                citID.setEditable(false);
-                JOptionPane.showMessageDialog(citizenSearch, message);
             }
         });
         nCitizenSearch.addActionListener(new ActionListener() {
@@ -468,30 +476,30 @@ public class Page5a_people extends JFrame implements ActionListener {
                     if (usrInput != null) {
                         found = DataIO.checkingn(usrInput);
                         Main.nclogin = found;
+
+                        JTextField username = new JTextField(Main.nclogin.getUsername(),16);
+                        JTextField password = new JTextField(Main.nclogin.getPassword(),16);
+                        JTextField gender = new JTextField(String.valueOf(Main.nclogin.getGender()),5);
+                        JTextField age = new JTextField(Integer.toString(Main.nclogin.getAge()),5);
+                        JTextField passportNum = new JTextField(Integer.toString(Main.nclogin.getPassportNum()),16);
+
+                        Object[] message = {
+                                "Username: ", username,
+                                "Password: ", password,
+                                "Gender : ", gender,
+                                "Age : ", age,
+                                "Passport ID : ", passportNum,
+                        };
+                        username.setEditable(false);
+                        password.setEditable(false);
+                        gender.setEditable(false);
+                        age.setEditable(false);
+                        passportNum.setEditable(false);
+                        JOptionPane.showMessageDialog(citizenSearch, message);
                     }
                 }catch (Exception a){
                     JOptionPane.showMessageDialog(nCitizenSearch, "Please Try Again");
                 }
-
-                JTextField username = new JTextField(Main.nclogin.getUsername(),16);
-                JTextField password = new JTextField(Main.nclogin.getPassword(),16);
-                JTextField gender = new JTextField(String.valueOf(Main.nclogin.getGender()),5);
-                JTextField age = new JTextField(Integer.toString(Main.nclogin.getAge()),5);
-                JTextField passportNum = new JTextField(Integer.toString(Main.nclogin.getPassportNum()),16);
-
-                Object[] message = {
-                        "Username: ", username,
-                        "Password: ", password,
-                        "Gender : ", gender,
-                        "Age : ", age,
-                        "Passport ID : ", passportNum,
-                };
-                username.setEditable(false);
-                password.setEditable(false);
-                gender.setEditable(false);
-                age.setEditable(false);
-                passportNum.setEditable(false);
-                JOptionPane.showMessageDialog(citizenSearch, message);
             }
         });
         back.addActionListener(new ActionListener() {

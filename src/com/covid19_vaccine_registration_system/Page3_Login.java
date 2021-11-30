@@ -21,7 +21,7 @@ public class Page3_Login extends JFrame implements ActionListener {
             String usrInput = username.getText();
             String pwInput = password.getText();
 
-            if (option == JOptionPane.YES_OPTION) {
+            if (option == JOptionPane.OK_OPTION) {
                 Citizen found = DataIO.checking(usrInput);
                 if (found != null) {
                     if (Objects.equals(found.getPassword(), pwInput)) {
@@ -51,17 +51,21 @@ public class Page3_Login extends JFrame implements ActionListener {
             String usrInput = username.getText();
             String pwInput = password.getText();
 
-            NonCitizen found = DataIO.checkingn(usrInput);
-            if(found!=null){
-                if(Objects.equals(found.getPassword(), pwInput)){
-                    Main.nclogin = found;
-                    setVisible(false);
-                    Main.fourthB.setVisible(true);
-                } else{
-                    JOptionPane.showMessageDialog(back, "Wrong Password");
+            if (option == JOptionPane.OK_OPTION) {
+                NonCitizen found = DataIO.checkingn(usrInput);
+                if (found != null) {
+                    if (Objects.equals(found.getPassword(), pwInput)) {
+                        Main.nclogin = found;
+                        setVisible(false);
+                        Main.fourthB.setVisible(true);
+                    } else {
+                        JOptionPane.showMessageDialog(back, "Wrong Password");
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(back, "Username not found");
                 }
-            } else{
-                JOptionPane.showMessageDialog(back, "Username not found");
+            }else{
+
             }
 
         }
@@ -78,17 +82,21 @@ public class Page3_Login extends JFrame implements ActionListener {
             String usrInput = username.getText();
             String pwInput = password.getText();
 
-            Admin found = DataIO.checkinga(usrInput);
-            if(found!=null){
-                if(Objects.equals(found.getPassword(), pwInput)){
-                    Main.alogin = found;
-                    setVisible(false);
-                    Main.fifth.setVisible(true);
-                } else{
-                    JOptionPane.showMessageDialog(back, "Wrong Password");
+            if (option == JOptionPane.OK_OPTION) {
+                Admin found = DataIO.checkinga(usrInput);
+                if (found != null) {
+                    if (Objects.equals(found.getPassword(), pwInput)) {
+                        Main.alogin = found;
+                        setVisible(false);
+                        Main.fifth.setVisible(true);
+                    } else {
+                        JOptionPane.showMessageDialog(back, "Wrong Password");
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(back, "Username not found");
                 }
-            } else{
-                JOptionPane.showMessageDialog(back, "Username not found");
+            }else{
+
             }
         } else if (e.getSource() == back) {
             setVisible(false);

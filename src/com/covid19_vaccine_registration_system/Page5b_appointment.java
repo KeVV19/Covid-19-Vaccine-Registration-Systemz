@@ -58,7 +58,7 @@ public class Page5b_appointment extends JFrame implements ActionListener {
         view.addActionListener(this);
         search.addActionListener(this);
         back.addActionListener(this);
-        setVisible(true);
+        /*setVisible(true);*/
     }
 
     private void Add(){
@@ -209,13 +209,13 @@ public class Page5b_appointment extends JFrame implements ActionListener {
     private void Search(){
         Appointment found = null;
         try{
-            int idInp = Integer.parseInt(JOptionPane.showInputDialog(null, "Appointment ID : ", "Modify Appointmnet", JOptionPane.INFORMATION_MESSAGE));
+            int idInp = Integer.parseInt(JOptionPane.showInputDialog(search, "Appointment ID : ", "Modify Appointmnet", JOptionPane.INFORMATION_MESSAGE));
             if(idInp > 0) {
                 found = DataIO.checkingapp(idInp);
                 Main.appointment = found;
             }
         }catch (Exception ex){
-            JOptionPane.showMessageDialog(null, "Please Try Again");
+            JOptionPane.showMessageDialog(search, "Please Try Again");
             setVisible(true);
         }
         JTextField id = new JTextField(Integer.toString(Main.appointment.getId()), 5);

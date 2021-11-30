@@ -14,7 +14,8 @@ public class Page2_Register extends JFrame implements ActionListener {
         if(e.getSource() == citizen){
             JTextField username = new JTextField(16);
             JTextField password = new JPasswordField(16);
-            JTextField gender = new JTextField(5);
+            Gender[] genders = {Gender.Male, Gender.Female};
+            JComboBox gender = new JComboBox(genders);
             JTextField age = new JTextField(5);
             JTextField citID = new JTextField(16);
 
@@ -27,32 +28,35 @@ public class Page2_Register extends JFrame implements ActionListener {
             };
 
             int option = JOptionPane.showConfirmDialog(citizen, message, "Citizen Register", JOptionPane.OK_CANCEL_OPTION);
-            try{
-                String nmInput = username.getText();
-                String psInput = password.getText();
-                Gender gdInput = Gender.valueOf(gender.getText());
-                int ageInput = Integer.parseInt(age.getText());
-                int citIDInput = Integer.parseInt(citID.getText());
+            if(option == JOptionPane.OK_OPTION) {
+                try {
+                    String nmInput = username.getText();
+                    String psInput = password.getText();
+                    Gender gdInput = (Gender) gender.getSelectedItem();
+                    int ageInput = Integer.parseInt(age.getText());
+                    int citIDInput = Integer.parseInt(citID.getText());
 
-                Citizen found = DataIO.checking(nmInput);
-                if(found == null){
-                    Citizen c = new Citizen(nmInput,psInput,gdInput,ageInput,0,citIDInput);
-                    DataIO.allCitizen.add(c);
-                    DataIO.write();
-                    JOptionPane.showMessageDialog(citizen, "Record Successfully Saved");
-                }else{
-                    JOptionPane.showMessageDialog(citizen,"The username has been used!");
+                    Citizen found = DataIO.checking(nmInput);
+                    if (found == null) {
+                        Citizen c = new Citizen(nmInput, psInput, gdInput, ageInput, 0, citIDInput);
+                        DataIO.allCitizen.add(c);
+                        DataIO.write();
+                        JOptionPane.showMessageDialog(citizen, "Record Successfully Saved");
+                    } else {
+                        JOptionPane.showMessageDialog(citizen, "The username has been used!");
+                    }
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(citizen, "Incorrect Input, Please Try Again");
                 }
-            } catch (Exception ex){
-                JOptionPane.showMessageDialog(citizen, "Incorrect Input, Please Try Again");
+            }else{
+
             }
-
-
 
         } else if (e.getSource() == nCitizen) {
             JTextField username = new JTextField(16);
             JTextField password = new JPasswordField(16);
-            JTextField gender = new JTextField(5);
+            Gender[] genders = {Gender.Male, Gender.Female};
+            JComboBox gender = new JComboBox(genders);
             JTextField age = new JTextField(5);
             JTextField passportNum = new JTextField(16);
 
@@ -65,20 +69,28 @@ public class Page2_Register extends JFrame implements ActionListener {
             };
 
             int option = JOptionPane.showConfirmDialog(null, message, "NonCitizen Register", JOptionPane.OK_CANCEL_OPTION);
-            String nmInput = username.getText();
-            String psInput = password.getText();
-            Gender gdInput = Gender.valueOf(gender.getText());
-            int ageInput = Integer.parseInt(age.getText());
-            int passportInput = Integer.parseInt(passportNum.getText());
+            if(option == JOptionPane.OK_OPTION) {
+                try {
+                    String nmInput = username.getText();
+                    String psInput = password.getText();
+                    Gender gdInput = (Gender) gender.getSelectedItem();
+                    int ageInput = Integer.parseInt(age.getText());
+                    int passportInput = Integer.parseInt(passportNum.getText());
 
-            NonCitizen found = DataIO.checkingn(nmInput);
-            if(found == null){
-                NonCitizen nc = new NonCitizen(nmInput,psInput,gdInput,ageInput,0, passportInput);
-                DataIO.allNonCitizen.add(nc);
-                DataIO.write();
-                JOptionPane.showMessageDialog(null, "Record Successfully Saved");
+                    NonCitizen found = DataIO.checkingn(nmInput);
+                    if (found == null) {
+                        NonCitizen nc = new NonCitizen(nmInput, psInput, gdInput, ageInput, 0, passportInput);
+                        DataIO.allNonCitizen.add(nc);
+                        DataIO.write();
+                        JOptionPane.showMessageDialog(null, "Record Successfully Saved");
+                    } else {
+                        JOptionPane.showMessageDialog(nCitizen, "The username has been used!");
+                    }
+                }catch(Exception ex){
+                    JOptionPane.showMessageDialog(citizen, "Incorrect Input, Please Try Again");
+                }
             }else{
-                JOptionPane.showMessageDialog(nCitizen,"The username has been used!");
+
             }
 
         } else if (e.getSource() == admin) {
@@ -86,7 +98,8 @@ public class Page2_Register extends JFrame implements ActionListener {
             if(input.equals("12345")) {
                 JTextField username = new JTextField(16);
                 JTextField password = new JPasswordField(16);
-                JTextField gender = new JTextField(5);
+                Gender[] genders = {Gender.Male, Gender.Female};
+                JComboBox gender = new JComboBox(genders);
                 JTextField age = new JTextField(5);
 
                 Object[] message = {
@@ -99,7 +112,7 @@ public class Page2_Register extends JFrame implements ActionListener {
                 int option = JOptionPane.showConfirmDialog(null, message, "Admin Register", JOptionPane.OK_CANCEL_OPTION);
                 String nmInput = username.getText();
                 String psInput = password.getText();
-                Gender gdInput = Gender.valueOf(gender.getText());
+                Gender gdInput = (Gender) gender.getSelectedItem();
                 int ageInput = Integer.parseInt(age.getText());
 
                 Admin found = DataIO.checkinga(nmInput);

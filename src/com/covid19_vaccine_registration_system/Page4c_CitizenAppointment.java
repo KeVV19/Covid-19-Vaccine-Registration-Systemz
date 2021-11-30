@@ -72,22 +72,29 @@ public class Page4c_CitizenAppointment extends JFrame implements ActionListener 
 
             JList jl = new JList(vacname);
             jl.setEnabled(false);
-            Font font = new Font("Courier", Font.BOLD, 14);
-            jl.setFont(font);
 
-            boolean flag = true;
             for (int i = 0; i < DataIO.allVaccine.size(); i++) {
                 Vaccine vac = DataIO.allVaccine.get(i);
-                if (vac.getCentre().equals(cen)) {
-                    vaclist.add(String.valueOf(vac.getName()));
-                    vacname.addElement(vaclist.get(i));
-                } else {
-                    flag = false;
-                    break;
+                if (cen.equals(vac.getCentre())) {
+                    vaclist.add(vac.getName());
                 }
             }
 
-            if (flag) {
+            ArrayList<Integer> idlist = new ArrayList<Integer>();
+
+            for (int o = 0;o <DataIO.allAppointment.size(); o++){
+                Appointment app = DataIO.allAppointment.get(o);
+                if (cen.equals(app.getCentre())){
+                    idlist.add(Integer.parseInt(String.valueOf(app.getId())));
+                }
+            }
+
+            if (vaclist.size() != 0 && idlist.size() != 0) {
+
+                for (int ii = 0; ii < vaclist.size(); ii++){
+                    vacname.addElement(vaclist.get(ii));
+                }
+
                 JFrame x = new JFrame();
                 x.setTitle(String.valueOf(cen));
                 x.setSize(500, 300);
@@ -111,23 +118,23 @@ public class Page4c_CitizenAppointment extends JFrame implements ActionListener 
                 Panel y4 = new Panel();
                 y4.setLayout(new FlowLayout());
 
-                ArrayList<Integer> idlist = new ArrayList<Integer>();
                 JComboBox<Integer> idBox = new JComboBox<Integer>();
 
                 String[] columnNames = {"ID", "Centre", "Day", "Time"};
                 String[][] data = new String[size][4];
                 for (int j = 0; j < size; j++) {
                     Appointment a = DataIO.allAppointment.get(j);
+                    data[j][0] = Integer.toString(a.getId());
+                    data[j][1] = "" + a.getCentre();
+                    data[j][2] = "" + a.getDay();
+                    data[j][3] = "" + a.getTime();
                     if (a.getCentre().equals(cen)) {
-                        data[j][0] = Integer.toString(a.getId());
-                        data[j][1] = "" + a.getCentre();
-                        data[j][2] = "" + a.getDay();
-                        data[j][3] = "" + a.getTime();
-                        idlist.add(Integer.parseInt(String.valueOf(a.getId())));
                         idBox.addItem(Integer.parseInt(String.valueOf(a.getId())));
                     }
                 }
+
                 DefaultTableModel z = new DefaultTableModel(data, columnNames);
+
                 JTable z1 = new JTable(z);
                 z1.setEnabled(false);  //Disable Table Editing
                 z1.setRowSelectionAllowed(true);
@@ -183,7 +190,7 @@ public class Page4c_CitizenAppointment extends JFrame implements ActionListener 
                 x.add(y4);
                 x.setVisible(true);
             } else {
-                JOptionPane.showMessageDialog(makeApp, "This centre has no vaccine available");
+                JOptionPane.showMessageDialog(makeApp, "This centre has no appointment / vaccine available!");
                 Main.fourthC.setVisible(true);
             }
         }else{

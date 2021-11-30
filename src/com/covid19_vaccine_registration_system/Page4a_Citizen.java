@@ -16,7 +16,13 @@ public class Page4a_Citizen extends JFrame implements ActionListener {
         } else if (e.getSource() == profile) {
             JTextField username = new JTextField(Main.clogin.getUsername(), 16);
             JTextField password = new JTextField(Main.clogin.getPassword(), 16);
-            JTextField gender = new JTextField(String.valueOf(Main.clogin.getGender()), 5);
+            Gender[] genders = {Gender.Male, Gender.Female};
+            JComboBox gender = new JComboBox(genders);
+            if(Main.clogin.getGender() == Gender.Male){
+                gender.setSelectedIndex(0);
+            }else{
+                gender.setSelectedIndex(1);
+            }
             JTextField age = new JTextField(Integer.toString(Main.clogin.getAge()), 5);
             JTextField citID = new JTextField(Integer.toString(Main.clogin.getCitizenID()), 16);
 
@@ -33,7 +39,7 @@ public class Page4a_Citizen extends JFrame implements ActionListener {
             int option = JOptionPane.showConfirmDialog(profile, message, "Profile Update", JOptionPane.OK_CANCEL_OPTION);
             String nmInput = username.getText();
             String psInput = password.getText();
-            Gender gdInput = Gender.valueOf(gender.getText());
+            Gender gdInput = (Gender) gender.getSelectedItem();
             int ageInput = Integer.parseInt(age.getText());
             int citIDInput = Integer.parseInt(citID.getText());
 
