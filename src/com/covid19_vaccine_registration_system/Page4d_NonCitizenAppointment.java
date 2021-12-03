@@ -7,11 +7,10 @@ import javax.swing.table.TableRowSorter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Page4c_CitizenAppointment extends JFrame implements ActionListener {
+public class Page4d_NonCitizenAppointment extends JFrame implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == makeApp){
             setVisible(false);
@@ -27,13 +26,13 @@ public class Page4c_CitizenAppointment extends JFrame implements ActionListener 
             CancelApp();
         }else if(e.getSource() == back){
             setVisible(false);
-            Main.fourthA.setVisible(true);
+            Main.fourthB.setVisible(true);
         }
     }
 
     private JButton makeApp,viewApp,compApp,cancelApp,back;
 
-    public Page4c_CitizenAppointment(){
+    public Page4d_NonCitizenAppointment(){
         setTitle("Appointment Menu");
         setSize(350,200);
         setLocationRelativeTo(null);
@@ -58,13 +57,13 @@ public class Page4c_CitizenAppointment extends JFrame implements ActionListener 
         cancelApp.addActionListener(this);
         back.addActionListener(this);
 
-       /* setVisible(true);*/
+        /* setVisible(true);*/
     }
 
     private void MakeApp(){
-        int s = Main.clogin.getMyCitAppointment().size();
+        int s = Main.nclogin.getMyNCitAppointment().size();
 
-        if(s == 0 || Main.clogin.getMyCitAppointment().get(s-1).isCompleted()) {
+        if(s == 0 || Main.nclogin.getMyNCitAppointment().get(s-1).isCompleted()) {
             Centre[] centres = {Centre.CentreA, Centre.CentreB, Centre.CentreC,Centre.CentreD,Centre.CentreE};
             Centre cen = (Centre) JOptionPane.showInputDialog(makeApp, "Select Centre: ", "Centre Selection",
                     JOptionPane.INFORMATION_MESSAGE, null, centres, centres[0]);
@@ -92,7 +91,7 @@ public class Page4c_CitizenAppointment extends JFrame implements ActionListener 
 
                 if (vaclist.size() != 0 && idlist.size() != 0) {
 
-                    for(int ii = 0; ii < vaclist.size(); ii++) {
+                    for (int ii = 0; ii < vaclist.size(); ii++) {
                         vacname.addItem(vaclist.get(ii));
                     }
 
@@ -171,9 +170,9 @@ public class Page4c_CitizenAppointment extends JFrame implements ActionListener 
                             for (int k = 0; k < size; k++) {
                                 Appointment apps = DataIO.allAppointment.get(k);
                                 if (idSelect == apps.getId()) {
-                                    CitAppointmentMade g = new CitAppointmentMade(Main.clogin,apps.getId(), apps.getCentre(), apps.getDay(), apps.getTime(),vaccine,isVac);
-                                    Main.clogin.getMyCitAppointment().add(g);
-                                    DataIO.allCitAppointmentMade.add(g);
+                                    NCitAppointmentMade g = new NCitAppointmentMade(Main.nclogin,apps.getId(), apps.getCentre(), apps.getDay(), apps.getTime(),vaccine,isVac);
+                                    Main.nclogin.getMyNCitAppointment().add(g);
+                                    DataIO.allNCitAppointmentMade.add(g);
                                     DataIO.write();
                                     break;
                                 }
@@ -213,16 +212,17 @@ public class Page4c_CitizenAppointment extends JFrame implements ActionListener 
     }
 
     private void ViewApp(){
-        int s = Main.clogin.getMyCitAppointment().size();
-        if(s == 0 || Main.clogin.getMyCitAppointment().get(s-1).isCompleted()) {
+        int s = Main.nclogin.getMyNCitAppointment().size();
+        if(s == 0 || Main.nclogin.getMyNCitAppointment().get(s-1).isCompleted()) {
             JOptionPane.showMessageDialog(viewApp,"You do not have any appointment");
+            setVisible(false);
             setVisible(true);
         }else{
-            JTextField id = new JTextField(Integer.toString(Main.clogin.getMyCitAppointment().get(s - 1).getId()), 5);
-            JTextField centre = new JTextField(Main.clogin.getMyCitAppointment().get(s - 1).getCentre().toString());
-            JTextField day = new JTextField(Main.clogin.getMyCitAppointment().get(s - 1).getDay().toString());
-            JTextField time = new JTextField(Integer.toString(Main.clogin.getMyCitAppointment().get(s - 1).getTime()));
-            JTextField vaccine = new JTextField(Main.clogin.getMyCitAppointment().get(s - 1).getVaccine());
+            JTextField id = new JTextField(Integer.toString(Main.nclogin.getMyNCitAppointment().get(s - 1).getId()), 5);
+            JTextField centre = new JTextField(Main.nclogin.getMyNCitAppointment().get(s - 1).getCentre().toString());
+            JTextField day = new JTextField(Main.nclogin.getMyNCitAppointment().get(s - 1).getDay().toString());
+            JTextField time = new JTextField(Integer.toString(Main.nclogin.getMyNCitAppointment().get(s - 1).getTime()));
+            JTextField vaccine = new JTextField(Main.nclogin.getMyNCitAppointment().get(s - 1).getVaccine());
 
             Object[] message = {
                     "Appointment ID: ", id,
@@ -243,16 +243,16 @@ public class Page4c_CitizenAppointment extends JFrame implements ActionListener 
     }
 
     private void CompApp(){
-        int s = Main.clogin.getMyCitAppointment().size();
-        if (s == 0 || Main.clogin.getMyCitAppointment().get(s-1).isCompleted()) {
+        int s = Main.nclogin.getMyNCitAppointment().size();
+        if (s == 0 || Main.nclogin.getMyNCitAppointment().get(s-1).isCompleted()) {
             JOptionPane.showMessageDialog(compApp, "You do not have any appointment");
             setVisible(true);
         }else{
-            JTextField id = new JTextField(Integer.toString(Main.clogin.getMyCitAppointment().get(s - 1).getId()), 5);
-            JTextField centre = new JTextField(Main.clogin.getMyCitAppointment().get(s - 1).getCentre().toString());
-            JTextField day = new JTextField(Main.clogin.getMyCitAppointment().get(s - 1).getDay().toString());
-            JTextField time = new JTextField(Integer.toString(Main.clogin.getMyCitAppointment().get(s - 1).getTime()));
-            JTextField vaccine = new JTextField(Main.clogin.getMyCitAppointment().get(s - 1).getVaccine());
+            JTextField id = new JTextField(Integer.toString(Main.nclogin.getMyNCitAppointment().get(s - 1).getId()), 5);
+            JTextField centre = new JTextField(Main.nclogin.getMyNCitAppointment().get(s - 1).getCentre().toString());
+            JTextField day = new JTextField(Main.nclogin.getMyNCitAppointment().get(s - 1).getDay().toString());
+            JTextField time = new JTextField(Integer.toString(Main.nclogin.getMyNCitAppointment().get(s - 1).getTime()));
+            JTextField vaccine = new JTextField(Main.nclogin.getMyNCitAppointment().get(s - 1).getVaccine());
 
             Object[] message = {
                     "Appointment ID: ", id,
@@ -271,11 +271,11 @@ public class Page4c_CitizenAppointment extends JFrame implements ActionListener 
             try {
                 int option = JOptionPane.showConfirmDialog(compApp, message, "Complete Appointment", JOptionPane.OK_CANCEL_OPTION);
                 if(option == JOptionPane.OK_OPTION) {
-                    String confirm = JOptionPane.showInputDialog("Enter your Citizen ID to complete appointment: ");
-                    if (Main.clogin.getCitizenID() == Integer.parseInt(confirm)) {
+                    String confirm = JOptionPane.showInputDialog("Enter your Passport Number to complete appointment: ");
+                    if (Main.nclogin.getPassportNum() == Integer.parseInt(confirm)) {
                         JOptionPane.showMessageDialog(compApp, "Your Appointment have been Completed!");
-                        Main.clogin.addVaccinatedAmt(1); //Modularity
-                        Main.clogin.getMyCitAppointment().get(s - 1).setCompleted(true);
+                        Main.nclogin.addVaccinatedAmt(1); //Modularity
+                        Main.nclogin.getMyNCitAppointment().get(s - 1).setCompleted(true);
                         DataIO.write();
                         setVisible(true);
                     }else{
@@ -293,15 +293,15 @@ public class Page4c_CitizenAppointment extends JFrame implements ActionListener 
     }
 
     private void CancelApp(){
-        int s = Main.clogin.getMyCitAppointment().size();
-        if (s == 0 || Main.clogin.getMyCitAppointment().get(s-1).isCompleted()) {
+        int s = Main.nclogin.getMyNCitAppointment().size();
+        if (s == 0 || Main.nclogin.getMyNCitAppointment().get(s-1).isCompleted()) {
             JOptionPane.showMessageDialog(compApp, "You do not have any appointment");
             setVisible(true);
         }else{
-            CitAppointmentMade found = DataIO.checkingcitappmd(Main.clogin.getMyCitAppointment().get(s-1).getId(),Main.clogin.getUsername());
+            NCitAppointmentMade found = DataIO.checkingncitappmd(Main.nclogin.getMyNCitAppointment().get(s-1).getId(),Main.nclogin.getUsername());
             if(found != null){
-                Main.clogin.getMyCitAppointment().remove(found);
-                DataIO.allCitAppointmentMade.remove(found);
+                Main.nclogin.getMyNCitAppointment().remove(found);
+                DataIO.allNCitAppointmentMade.remove(found);
                 DataIO.write();
                 JOptionPane.showMessageDialog(compApp, "Your Appointment have been Canceled!");
 

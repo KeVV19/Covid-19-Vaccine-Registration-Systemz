@@ -89,21 +89,26 @@ public class Page5c_supply extends JFrame implements ActionListener{
 
                 Vaccine found = DataIO.checkingvac(idInp);
                 if (found == null) {
-                    Vaccine a = new Vaccine(idInp, nmInp, qntInp, doseInp, cntInp);
-                    DataIO.allVaccine.add(a);
-                    DataIO.write();
-                    JOptionPane.showMessageDialog(add, "Record Successfully Saved");
-                    setVisible(true);
+                    Vaccine foundcen = DataIO.checkingvaccen(nmInp,cntInp);
+                    if(foundcen == null) {
+                        Vaccine a = new Vaccine(idInp, nmInp, qntInp, doseInp, cntInp);
+                        DataIO.allVaccine.add(a);
+                        DataIO.write();
+                        JOptionPane.showMessageDialog(add, "Record Successfully Saved");
+                        setVisible(true);
+                    }else{
+                        JOptionPane.showMessageDialog(add, "This Centre already has the same vaccine!");
+                        setVisible(true);
+                    }
                 } else {
                     JOptionPane.showMessageDialog(add, "The Vaccine ID has been used!");
                     setVisible(true);
                 }
             }else {
-                setVisible(false);
-                Main.fifthC.setVisible(true);
+                setVisible(true);
             }
         }catch(Exception e){
-            JOptionPane.showMessageDialog(add, "Unsuitable Input Detected, Please Try Again");
+            JOptionPane.showMessageDialog(add, "Please Try Again");
             setVisible(true);
         }
     }
@@ -112,14 +117,41 @@ public class Page5c_supply extends JFrame implements ActionListener{
             int idInp = Integer.parseInt(JOptionPane.showInputDialog(delete,
                     "Vaccine ID: ",
                     "Remove Appointment", JOptionPane.INFORMATION_MESSAGE));
-            Appointment found = DataIO.checkingapp(idInp);
+            Vaccine found = DataIO.checkingvac(idInp);
             if(found != null){
-                DataIO.allAppointment.remove(DataIO.allVaccine.indexOf(idInp)+1); //Removes the index of Appointment ID from the ArrayList
-                DataIO.write();
-                JOptionPane.showMessageDialog(delete, "Record Successfully Saved");
-                setVisible(true);
+                JTextField id = new JTextField(Integer.toString(Main.vaccine.getId()), 5);
+                JTextField name = new JTextField(Main.vaccine.getName());
+                JTextField qty = new JTextField(Integer.toString(Main.vaccine.getQuantity()), 5);
+                JTextField dose = new JTextField(Integer.toString(Main.vaccine.getDose()), 5);
+                JTextField centre = new JTextField(Main.vaccine.getCentre().toString(), 5);
+
+                Object[] message = {
+                        "Vaccine ID: ", id,
+                        "Vaccine Name: ", name,
+                        "Vaccine Quantity (in Mil): ", qty,
+                        "Vaccine Dose: ", dose,
+                        "Vaccination Centre: ", centre,
+                        "\nPress OK to Remove Vaccine"
+                };
+
+                id.setEditable(false);
+                name.setEditable(false);
+                qty.setEditable(false);
+                dose.setEditable(false);
+                centre.setEditable(false);
+
+                int option = JOptionPane.showConfirmDialog(delete, message, "Remove Vaccine", JOptionPane.OK_CANCEL_OPTION);
+                if(option == JOptionPane.OK_OPTION) {
+                    DataIO.allVaccine.remove(found); //Removes the index of Appointment ID from the ArrayList
+                    DataIO.write();
+                    JOptionPane.showMessageDialog(delete, "Record Successfully Deleted");
+                    setVisible(true);
+                }else{
+                    JOptionPane.showMessageDialog(delete, "Cancelled");
+                    setVisible(true);
+                }
             }else{
-                JOptionPane.showMessageDialog(delete, "Appointment ID not found");
+                JOptionPane.showMessageDialog(delete, "Vaccine ID not found");
                 setVisible(true);
             }
         }catch (Exception e){
@@ -128,11 +160,10 @@ public class Page5c_supply extends JFrame implements ActionListener{
         }
     }
     private void Edit(){
-        Vaccine found = null;
         try{
             int idInp = Integer.parseInt(JOptionPane.showInputDialog(edit, "Vaccine ID : ", "Edit Vaccine", JOptionPane.INFORMATION_MESSAGE));
             if(idInp > 0) {
-                found = DataIO.checkingvac(idInp);
+                Vaccine found = DataIO.checkingvac(idInp);
                 Main.vaccine = found;
             }
             JTextField id = new JTextField(Integer.toString(Main.vaccine.getId()), 5);
@@ -160,13 +191,19 @@ public class Page5c_supply extends JFrame implements ActionListener{
             Centre cntInp = (Centre) centre.getSelectedItem();
 
             if(option == JOptionPane.OK_OPTION){
-                Main.vaccine.setName(nmInp);
-                Main.vaccine.setQuantity(qtyInp);
-                Main.vaccine.setDose(doseInp);
-                Main.vaccine.setCentre(cntInp);
-                DataIO.write();
-                JOptionPane.showMessageDialog(edit, "Record Updated");
-                setVisible(true);
+                Vaccine foundcen = DataIO.checkingvaccen(nmInp,cntInp);
+                if(foundcen == null) {
+                    Main.vaccine.setName(nmInp);
+                    Main.vaccine.setQuantity(qtyInp);
+                    Main.vaccine.setDose(doseInp);
+                    Main.vaccine.setCentre(cntInp);
+                    DataIO.write();
+                    JOptionPane.showMessageDialog(edit, "Record Updated");
+                    setVisible(true);
+                }else{
+                    JOptionPane.showMessageDialog(add, "This Centre already has the same vaccine!");
+                    setVisible(true);
+                }
             }else{
                 JOptionPane.showMessageDialog(edit, "Record Not Updated");
                 setVisible(true);
@@ -235,11 +272,10 @@ public class Page5c_supply extends JFrame implements ActionListener{
         });
     }
     private void Search(){
-        Vaccine found = null;
         try{
             int idInp = Integer.parseInt(JOptionPane.showInputDialog(search, "Vaccine ID : ", "Modify Appointmnet", JOptionPane.INFORMATION_MESSAGE));
             if(idInp > 0) {
-                found = DataIO.checkingvac(idInp);
+                Vaccine found = DataIO.checkingvac(idInp);
                 Main.vaccine = found;
 
                 JTextField id = new JTextField(Integer.toString(Main.vaccine.getId()), 5);

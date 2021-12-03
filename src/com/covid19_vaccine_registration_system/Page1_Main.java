@@ -21,11 +21,10 @@ public class Page1_Main extends JFrame implements ActionListener {
     }
 
     private Button login, register, exit;
-    Label l;
 
     public Page1_Main(){
         setTitle("Main Menu");
-        setSize(250, 100);
+        setSize(250, 160);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new FlowLayout()); //top-bottom, center alignment
@@ -33,6 +32,11 @@ public class Page1_Main extends JFrame implements ActionListener {
         register = new Button("Register");
         login = new Button("Login");
         exit = new Button("Exit");
+
+        register.setPreferredSize(new Dimension(75, 50));
+        login.setPreferredSize(new Dimension(75, 50));
+        exit.setPreferredSize(new Dimension(75,50));
+
         add(register);
         add(login);
         add(exit);

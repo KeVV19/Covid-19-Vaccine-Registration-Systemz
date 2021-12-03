@@ -77,7 +77,7 @@ public class Page5b_appointment extends JFrame implements ActionListener {
                     "Appointment ID: ", id,
                     "Vaccination Centre : ", centre,
                     "Day : ", day,
-                    "Time (Hour) : ", time,
+                    "Time (0-24) (Hour) : ", time,
             };
             int option = JOptionPane.showConfirmDialog(add, message, "Add Appointment", JOptionPane.OK_CANCEL_OPTION);
 
@@ -86,21 +86,28 @@ public class Page5b_appointment extends JFrame implements ActionListener {
                 Centre cntInp = (Centre) centre.getSelectedItem();
                 Day dayInp = (Day) day.getSelectedItem();
                 int timeInp = Integer.parseInt(time.getText());
-
+                if (timeInp < 0 || timeInp > 24){
+                    throw new Exception();
+                }
                 Appointment found = DataIO.checkingapp(idInp);
                 if (found == null) {
-                    Appointment a = new Appointment(idInp, cntInp, dayInp, timeInp);
-                    DataIO.allAppointment.add(a);
-                    DataIO.write();
-                    JOptionPane.showMessageDialog(add, "Record Successfully Saved");
-                    setVisible(true);
+                    Appointment founddup = DataIO.checkingappdup(cntInp,dayInp,timeInp);
+                    if (founddup == null) {
+                        Appointment a = new Appointment(idInp, cntInp, dayInp, timeInp);
+                        DataIO.allAppointment.add(a);
+                        DataIO.write();
+                        JOptionPane.showMessageDialog(add, "Record Successfully Added");
+                        setVisible(true);
+                    }else{
+                        JOptionPane.showMessageDialog(add, "This Centre already had the same appointment day & time!");
+                        setVisible(true);
+                    }
                 } else {
                     JOptionPane.showMessageDialog(add, "The Appointment ID has been used!");
                     setVisible(true);
                 }
             }else{
-                setVisible(false);
-                Main.fifthB.setVisible(true);
+                setVisible(true);
             }
         }catch(Exception e){
             JOptionPane.showMessageDialog(add, "Unsuitable Input Detected, Please Try Again");
@@ -114,34 +121,10 @@ public class Page5b_appointment extends JFrame implements ActionListener {
                     "Remove Appointment", JOptionPane.INFORMATION_MESSAGE));
             Appointment found = DataIO.checkingapp(idInp);
             if(found != null){
-                DataIO.allAppointment.remove(DataIO.allAppointment.indexOf(idInp)+1); //Removes the index of Appointment ID from the ArrayList
-                DataIO.write();
-                JOptionPane.showMessageDialog(remove, "Record Successfully Saved");
-                setVisible(true);
-            }else{
-                JOptionPane.showMessageDialog(remove, "Appointment ID not found");
-                setVisible(true);
-            }
-        }catch (Exception e){
-            JOptionPane.showMessageDialog(remove, "Unsuitable Input Detected, Please Try Again");
-            setVisible(true);
-        }
-    }
-    private void Modify(){
-        Appointment found = null;
-        try{
-            int idInp = Integer.parseInt(JOptionPane.showInputDialog(modify, "Appointment ID : ", "Modify Appointment", JOptionPane.INFORMATION_MESSAGE));
-            if(idInp > 0) {
-                found = DataIO.checkingapp(idInp);
                 Main.appointment = found;
-
                 JTextField id = new JTextField(Integer.toString(Main.appointment.getId()), 5);
-                Centre[] centres = {Centre.CentreA,Centre.CentreB,Centre.CentreC,Centre.CentreD,Centre.CentreE};
-                JComboBox centre = new JComboBox(centres);
-                centre.setSelectedItem(Main.appointment.getCentre());
-                Day[] days = {Day.Monday,Day.Tuesday,Day.Wednesday,Day.Thursday,Day.Friday,Day.Saturday,Day.Sunday};
-                JComboBox day = new JComboBox(days);
-                day.setSelectedItem(Main.appointment.getDay());
+                JTextField centre = new JTextField(Main.appointment.getCentre().toString());
+                JTextField day = new JTextField(Main.appointment.getDay().toString());
                 JTextField time = new JTextField(Integer.toString(Main.appointment.getTime()));
 
                 Object[] message = {
@@ -149,26 +132,82 @@ public class Page5b_appointment extends JFrame implements ActionListener {
                         "Vaccination Centre : ", centre,
                         "Day : ", day,
                         "Time (Hour) : ", time,
+                        "\nPress OK to remove appointment"
                 };
+
                 id.setEditable(false);
+                centre.setEditable(false);
+                day.setEditable(false);
+                time.setEditable(false);
 
-                int option = JOptionPane.showConfirmDialog(modify, message, "Modify Appointment", JOptionPane.OK_CANCEL_OPTION);
+                int option = JOptionPane.showConfirmDialog(remove, message, "Remove Appointment", JOptionPane.OK_CANCEL_OPTION);
+                if(option == JOptionPane.OK_OPTION) {
+                    DataIO.allAppointment.remove(found); //Removes the index of Appointment ID from the ArrayList
+                    DataIO.write();
+                    JOptionPane.showMessageDialog(remove, "Record Successfully Saved");
+                    setVisible(true);
+                }else{
+                    JOptionPane.showMessageDialog(remove, "Cancelled");
+                    setVisible(true);
+                }
+            }else{
+                JOptionPane.showMessageDialog(remove, "Appointment ID not found");
+                setVisible(true);
+            }
+        }catch (Exception e){
+            JOptionPane.showMessageDialog(remove, "Please Try Again");
+            setVisible(true);
+        }
+    }
+    private void Modify(){
+        /*Appointment found = null;*/
+        try{
+            int idInp = Integer.parseInt(JOptionPane.showInputDialog(modify, "Appointment ID : ", "Modify Appointment", JOptionPane.INFORMATION_MESSAGE));
+            Appointment found = DataIO.checkingapp(idInp);
+            Main.appointment = found;
 
-                Centre cntInp = (Centre) centre.getSelectedItem();
-                Day dayInp = (Day) day.getSelectedItem();
-                int timeInp = Integer.parseInt(time.getText());
+            JTextField id = new JTextField(Integer.toString(Main.appointment.getId()), 5);
+            Centre[] centres = {Centre.CentreA, Centre.CentreB, Centre.CentreC, Centre.CentreD, Centre.CentreE};
+            JComboBox centre = new JComboBox(centres);
+            centre.setSelectedItem(Main.appointment.getCentre());
+            Day[] days = {Day.Monday, Day.Tuesday, Day.Wednesday, Day.Thursday, Day.Friday, Day.Saturday, Day.Sunday};
+            JComboBox day = new JComboBox(days);
+            day.setSelectedItem(Main.appointment.getDay());
+            JTextField time = new JTextField(Integer.toString(Main.appointment.getTime()));
 
-                if(option == JOptionPane.OK_OPTION){
+            Object[] message = {
+                    "Appointment ID: ", id,
+                    "Vaccination Centre : ", centre,
+                    "Day : ", day,
+                    "Time (Hour) : ", time,
+            };
+            id.setEditable(false);
+
+            int option = JOptionPane.showConfirmDialog(modify, message, "Modify Appointment", JOptionPane.OK_CANCEL_OPTION);
+
+            Centre cntInp = (Centre) centre.getSelectedItem();
+            Day dayInp = (Day) day.getSelectedItem();
+            int timeInp = Integer.parseInt(time.getText());
+            if (timeInp < 0 || timeInp > 24){
+                throw new Exception();
+            }
+
+            if (option == JOptionPane.OK_OPTION) {
+                Appointment founddup = DataIO.checkingappdup(cntInp,dayInp,timeInp);
+                if(founddup == null) {
                     Main.appointment.setCentre(cntInp);
                     Main.appointment.setDay(dayInp);
                     Main.appointment.setTime(timeInp);
                     DataIO.write();
                     JOptionPane.showMessageDialog(modify, "Record Updated");
                     setVisible(true);
-                }else{
-                    JOptionPane.showMessageDialog(modify, "Record Not Updated");
+                }else {
+                    JOptionPane.showMessageDialog(modify, "This Centre already had the same appointment day & time!");
                     setVisible(true);
                 }
+            } else {
+                JOptionPane.showMessageDialog(modify, "Record Not Updated");
+                setVisible(true);
             }
         }catch (Exception ex){
             JOptionPane.showMessageDialog(modify, "Please Try Again");
@@ -232,35 +271,34 @@ public class Page5b_appointment extends JFrame implements ActionListener {
         });
     }
     private void Search(){
-        Appointment found = null;
+        /*Appointment found = null;*/
         try{
             int idInp = Integer.parseInt(JOptionPane.showInputDialog(search, "Appointment ID : ", "Modify Appointmnet", JOptionPane.INFORMATION_MESSAGE));
-            if(idInp > 0) {
-                found = DataIO.checkingapp(idInp);
-                Main.appointment = found;
-            }
-        }catch (Exception ex){
+            Appointment found = DataIO.checkingapp(idInp);
+            Main.appointment = found;
+
+            JTextField id = new JTextField(Integer.toString(Main.appointment.getId()), 5);
+            JTextField centre = new JTextField(Main.appointment.getCentre().toString());
+            JTextField day = new JTextField(Main.appointment.getDay().toString());
+            JTextField time = new JTextField(Integer.toString(Main.appointment.getTime()));
+
+            Object[] message = {
+                    "Appointment ID: ", id,
+                    "Vaccination Centre : ", centre,
+                    "Day : ", day,
+                    "Time (Hour) : ", time,
+            };
+
+            id.setEditable(false);
+            centre.setEditable(false);
+            day.setEditable(false);
+            time.setEditable(false);
+
+            JOptionPane.showMessageDialog(search, message, "View Appointment", JOptionPane.DEFAULT_OPTION);
+            setVisible(true);
+        }catch(Exception e){
             JOptionPane.showMessageDialog(search, "Please Try Again");
             setVisible(true);
         }
-        JTextField id = new JTextField(Integer.toString(Main.appointment.getId()), 5);
-        JTextField centre = new JTextField(Main.appointment.getCentre().toString());
-        JTextField day = new JTextField(Main.appointment.getDay().toString());
-        JTextField time = new JTextField(Integer.toString(Main.appointment.getTime()));
-
-        Object[] message = {
-                "Appointment ID: ", id,
-                "Vaccination Centre : ", centre,
-                "Day : ", day,
-                "Time (Hour) : ", time,
-        };
-
-        id.setEditable(false);
-        centre.setEditable(false);
-        day.setEditable(false);
-        time.setEditable(false);
-
-        JOptionPane.showMessageDialog(search, message, "View Appointment", JOptionPane.DEFAULT_OPTION);
-        setVisible(true);
     }
 }

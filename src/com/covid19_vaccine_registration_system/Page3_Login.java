@@ -35,7 +35,6 @@ public class Page3_Login extends JFrame implements ActionListener {
                     JOptionPane.showMessageDialog(back, "Username not found");
                 }
             }else{
-
             }
         }
         else if (e.getSource() == nCitizen) {
@@ -65,9 +64,7 @@ public class Page3_Login extends JFrame implements ActionListener {
                     JOptionPane.showMessageDialog(back, "Username not found");
                 }
             }else{
-
             }
-
         }
         else if (e.getSource() == admin) {
             JTextField username = new JTextField(16);
@@ -96,7 +93,6 @@ public class Page3_Login extends JFrame implements ActionListener {
                     JOptionPane.showMessageDialog(back, "Username not found");
                 }
             }else{
-
             }
         } else if (e.getSource() == back) {
             setVisible(false);
