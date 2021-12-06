@@ -154,6 +154,7 @@ public class Page5_Admin extends JFrame implements ActionListener {
             x.setVisible(true);
 
             ok.addActionListener(new ActionListener() {
+                @Override
                 public void actionPerformed(ActionEvent e) {
                     x.dispose();
                     setVisible(true);
@@ -169,9 +170,10 @@ public class Page5_Admin extends JFrame implements ActionListener {
             int finalnCVac2 = nCVac2;
 
             generateChart.addActionListener(new ActionListener() {
+                @Override
                 public void actionPerformed(ActionEvent e) {
                     JFrame f = new JFrame();
-                    f.setTitle("Citizen Vaccine Bar Chart");
+                    f.setTitle("Citizen Vaccination Amount Bar Chart");
                     f.setSize(600, 300);
                     f.setLocation(200,260);
                     double[] citValues = new double[3];
@@ -186,13 +188,13 @@ public class Page5_Admin extends JFrame implements ActionListener {
                     citValues[2] = finalCVac2;
                     citNames[2] = "Vaccinated Amount = 2";
 
-                    f.getContentPane().add(new BarChart(citValues, citNames, "Citizen Vaccine Distribution",Color.pink));
+                    f.getContentPane().add(new BarChart(citValues, citNames, "Citizen Vaccination Amount Distribution",Color.pink));
 
                     f.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
                     f.setVisible(true);
 
                     JFrame g = new JFrame();
-                    g.setTitle("Non Citizen Vaccine Bar Chart");
+                    g.setTitle("Non Citizen Vaccination Amount Bar Chart");
                     g.setSize(600, 300);
                     g.setLocation(800,260);
                     double[] nCitValues = new double[3];
@@ -207,7 +209,7 @@ public class Page5_Admin extends JFrame implements ActionListener {
                     nCitValues[2] = finalnCVac2;
                     nCitNames[2] = "Vaccinated Amount = 2";
 
-                    g.getContentPane().add(new BarChart(nCitValues, nCitNames, "Non-Citizen Vaccine Distribution",Color.CYAN));
+                    g.getContentPane().add(new BarChart(nCitValues, nCitNames, "Non-Citizen Vaccination Amount Distribution",Color.CYAN));
 
                     g.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
                     g.setVisible(true);

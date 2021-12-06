@@ -2,6 +2,7 @@ package com.covid19_vaccine_registration_system;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -74,13 +75,13 @@ public class Page5a_people extends JFrame implements ActionListener {
         f.setVisible(true);
 
         citizenReg.addActionListener(new ActionListener() {
-            /*@Override*/
+            @Override
             public void actionPerformed(ActionEvent e) {
                 try {
                     JTextField username = new JTextField(16);
                     JTextField password = new JPasswordField(16);
                     Gender[] genders = {Gender.Male, Gender.Female};
-                    JComboBox gender = new JComboBox(genders);
+                    JComboBox<Gender> gender = new JComboBox<Gender>(genders);
                     JTextField age = new JTextField(5);
                     JTextField citID = new JTextField(16);
 
@@ -103,7 +104,7 @@ public class Page5a_people extends JFrame implements ActionListener {
 
                         Citizen found = DataIO.checking(nmInput);
                         if (found == null) {
-                            Citizen c = new Citizen(nmInput, psInput, gdInput, ageInput, 0, citIdInp);
+                            Citizen c = new Citizen(nmInput, psInput, gdInput, ageInput, vacInput, citIdInp);
                             DataIO.allCitizen.add(c);
                             DataIO.write();
                             JOptionPane.showMessageDialog(citizenReg, "Record Successfully Saved");
@@ -119,13 +120,13 @@ public class Page5a_people extends JFrame implements ActionListener {
             }
         });
         nCitizenReg.addActionListener(new ActionListener() {
-            /*@Override*/
+            @Override
             public void actionPerformed(ActionEvent e) {
                 try {
                     JTextField username = new JTextField(16);
                     JTextField password = new JPasswordField(16);
                     Gender[] genders = {Gender.Male, Gender.Female};
-                    JComboBox gender = new JComboBox(genders);
+                    JComboBox<Gender> gender = new JComboBox<Gender>(genders);
                     JTextField age = new JTextField(5);
                     JTextField passportNum = new JTextField(16);
 
@@ -134,7 +135,7 @@ public class Page5a_people extends JFrame implements ActionListener {
                             "Password: ", password,
                             "Gender : ", gender,
                             "Age : ", age,
-                            "Passport ID : ", passportNum
+                            "Passport Number : ", passportNum
                     };
 
                     int option = JOptionPane.showConfirmDialog(null, message, "NonCitizen Register", JOptionPane.OK_CANCEL_OPTION);
@@ -143,11 +144,12 @@ public class Page5a_people extends JFrame implements ActionListener {
                         String psInput = password.getText();
                         Gender gdInput = (Gender) gender.getSelectedItem();
                         int ageInput = Integer.parseInt(age.getText());
+                        int vacInput = 0;
                         int passportInput = Integer.parseInt(passportNum.getText());
 
                         NonCitizen found = DataIO.checkingn(nmInput);
                         if (found == null) {
-                            NonCitizen nc = new NonCitizen(nmInput, psInput, gdInput, ageInput, 0, passportInput);
+                            NonCitizen nc = new NonCitizen(nmInput, psInput, gdInput, ageInput, vacInput, passportInput);
                             DataIO.allNonCitizen.add(nc);
                             DataIO.write();
                             JOptionPane.showMessageDialog(nCitizenReg, "Record Successfully Saved");
@@ -163,7 +165,7 @@ public class Page5a_people extends JFrame implements ActionListener {
             }
         });
         back.addActionListener(new ActionListener() {
-            /*@Override*/
+            @Override
             public void actionPerformed(ActionEvent e) {
                 f.dispose();
                 setVisible(true);
@@ -188,18 +190,18 @@ public class Page5a_people extends JFrame implements ActionListener {
         f.setVisible(true);
 
         citizenMod.addActionListener(new ActionListener() {
-            /*@Override*/
+            @Override
             public void actionPerformed(ActionEvent e) {
                 try {
                     String usrInput = JOptionPane.showInputDialog(citizenMod, "Enter Citizen Username: ");
+                    Citizen found = DataIO.checking(usrInput);
                     if (usrInput != null) {
-                        Citizen found = DataIO.checking(usrInput);
                         Main.clogin = found;
 
                         JTextField username = new JTextField(Main.clogin.getUsername(), 16);
                         JTextField password = new JTextField(Main.clogin.getPassword(), 16);
                         Gender[] genders = {Gender.Male, Gender.Female};
-                        JComboBox gender = new JComboBox(genders);
+                        JComboBox<Gender> gender = new JComboBox<Gender>(genders);
                         gender.setSelectedItem(Main.clogin.getGender());
                         JTextField age = new JTextField(Integer.toString(Main.clogin.getAge()), 5);
                         JTextField vaccine = new JTextField(Integer.toString(Main.clogin.getVaccinatedAmount()), 5);
@@ -236,18 +238,18 @@ public class Page5a_people extends JFrame implements ActionListener {
             }
         });
         nCitizenMod.addActionListener(new ActionListener() {
-            /*@Override*/
+            @Override
             public void actionPerformed(ActionEvent e) {
                 try {
                     String usrInput = JOptionPane.showInputDialog(nCitizenMod, "Enter Non-Citizen Username: ");
+                    NonCitizen found = DataIO.checkingn(usrInput);
                     if (usrInput != null) {
-                        NonCitizen found = DataIO.checkingn(usrInput);
                         Main.nclogin = found;
 
                         JTextField username = new JTextField(Main.nclogin.getUsername(), 16);
                         JTextField password = new JTextField(Main.nclogin.getPassword(), 16);
                         Gender[] genders = {Gender.Male, Gender.Female};
-                        JComboBox gender = new JComboBox(genders);
+                        JComboBox<Gender> gender = new JComboBox<Gender>(genders);
                         gender.setSelectedItem(Main.nclogin.getGender());
                         JTextField age = new JTextField(Integer.toString(Main.nclogin.getAge()), 5);
                         JTextField vaccine = new JTextField(Integer.toString(Main.nclogin.getVaccinatedAmount()), 5);
@@ -265,7 +267,6 @@ public class Page5a_people extends JFrame implements ActionListener {
                         };
 
                         int option = JOptionPane.showConfirmDialog(nCitizenMod, message, "Profile Update", JOptionPane.OK_CANCEL_OPTION);
-                        String nmInput = username.getText();
                         String psInput = password.getText();
                         Gender gdInput = (Gender) gender.getSelectedItem();
                         int ageInput = Integer.parseInt(age.getText());
@@ -285,7 +286,7 @@ public class Page5a_people extends JFrame implements ActionListener {
             }
         });
         back.addActionListener(new ActionListener() {
-            /*@Override*/
+            @Override
             public void actionPerformed(ActionEvent e) {
                 f.dispose();
                 setVisible(true);
@@ -310,7 +311,7 @@ public class Page5a_people extends JFrame implements ActionListener {
         f.setVisible(true);
 
         citizenView.addActionListener(new ActionListener() {
-            /*@Override*/
+            @Override
             public void actionPerformed(ActionEvent e) {
                 JFrame x = new JFrame();
                 x.setTitle("All Citizens");
@@ -342,7 +343,7 @@ public class Page5a_people extends JFrame implements ActionListener {
                 z1.setEnabled(false); //Disable Editing
                 z1.getTableHeader().setReorderingAllowed(false); //Disable Row Reordering
 
-                TableRowSorter sorter = new TableRowSorter(z1.getModel()); //sort
+                TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(z1.getModel()); //sort
                 z1.setRowSorter(sorter);
                 List<RowSorter.SortKey> sortKeys = new ArrayList<>();
                 int index = 0;
@@ -370,7 +371,7 @@ public class Page5a_people extends JFrame implements ActionListener {
             }
         });
         nCitizenView.addActionListener(new ActionListener() {
-            /*@Override*/
+            @Override
             public void actionPerformed(ActionEvent e) {
                 JFrame x = new JFrame();
                 x.setTitle("All Non-Citizens");
@@ -402,7 +403,7 @@ public class Page5a_people extends JFrame implements ActionListener {
                 z1.setEnabled(false); //Disable Editing
                 z1.getTableHeader().setReorderingAllowed(false); //Disable Row Reordering
 
-                TableRowSorter sorter = new TableRowSorter(z1.getModel()); //sort
+                TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(z1.getModel()); //sort
                 z1.setRowSorter(sorter);
                 List<RowSorter.SortKey> sortKeys = new ArrayList<>();
                 int index = 0;
@@ -422,7 +423,7 @@ public class Page5a_people extends JFrame implements ActionListener {
                 x.setVisible(true);
 
                 ok.addActionListener(new ActionListener() {
-                    /*@Override*/
+                    @Override
                     public void actionPerformed(ActionEvent e) {
                         x.setVisible(false);
                     }
@@ -430,7 +431,7 @@ public class Page5a_people extends JFrame implements ActionListener {
             }
         });
         back.addActionListener(new ActionListener() {
-            /*@Override*/
+            @Override
             public void actionPerformed(ActionEvent e) {
                 f.dispose();
                 setVisible(true);
@@ -455,13 +456,12 @@ public class Page5a_people extends JFrame implements ActionListener {
         f.setVisible(true);
 
         citizenSearch.addActionListener(new ActionListener() {
-            /*@Override*/
+            @Override
             public void actionPerformed(ActionEvent e) {
-                /*Citizen found = null;*/
                 try {
                     String usrInput = JOptionPane.showInputDialog(citizenSearch, "Enter Citizen Username: ");
+                    Citizen found = DataIO.checking(usrInput);
                     if (usrInput != null) {
-                        Citizen found = DataIO.checking(usrInput);
                         Main.clogin = found;
 
                         JTextField username = new JTextField(Main.clogin.getUsername(),16);
@@ -493,13 +493,12 @@ public class Page5a_people extends JFrame implements ActionListener {
             }
         });
         nCitizenSearch.addActionListener(new ActionListener() {
-            /*@Override*/
+            @Override
             public void actionPerformed(ActionEvent e) {
-                /*NonCitizen found = null;*/
                 try {
                     String usrInput = JOptionPane.showInputDialog(nCitizenSearch, "Enter Non-Citizen Username: ");
+                    NonCitizen found = DataIO.checkingn(usrInput);
                     if (usrInput != null) {
-                        NonCitizen found = DataIO.checkingn(usrInput);
                         Main.nclogin = found;
 
                         JTextField username = new JTextField(Main.nclogin.getUsername(),16);
@@ -528,7 +527,7 @@ public class Page5a_people extends JFrame implements ActionListener {
             }
         });
         back.addActionListener(new ActionListener() {
-            /*@Override*/
+            @Override
             public void actionPerformed(ActionEvent e) {
                 f.dispose();
                 setVisible(true);

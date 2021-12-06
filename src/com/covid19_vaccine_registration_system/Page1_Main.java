@@ -1,7 +1,6 @@
 package com.covid19_vaccine_registration_system;
 
 import javax.swing.*;
-import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

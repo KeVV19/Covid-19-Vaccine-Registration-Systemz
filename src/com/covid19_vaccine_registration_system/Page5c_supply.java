@@ -2,6 +2,7 @@ package com.covid19_vaccine_registration_system;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -70,7 +71,7 @@ public class Page5c_supply extends JFrame implements ActionListener{
             JTextField qty = new JTextField(5);
             JTextField dose = new JTextField(5);
             Centre[] centres = {Centre.CentreA,Centre.CentreB,Centre.CentreC,Centre.CentreD,Centre.CentreE};
-            JComboBox centre = new JComboBox(centres);
+            JComboBox<Centre> centre = new JComboBox<Centre>(centres);
 
             Object[] message = {
                     "Vaccine ID: ", id,
@@ -79,7 +80,7 @@ public class Page5c_supply extends JFrame implements ActionListener{
                     "Vaccine Dose: ", dose,
                     "Vaccination Centre: ", centre,
             };
-            int option = JOptionPane.showConfirmDialog(add, message, "Add Appointment", JOptionPane.OK_CANCEL_OPTION);
+            int option = JOptionPane.showConfirmDialog(add, message, "Add Vaccine", JOptionPane.OK_CANCEL_OPTION);
             if (option == JOptionPane.OK_OPTION) {
                 int idInp = Integer.parseInt(id.getText());
                 String nmInp = name.getText();
@@ -113,12 +114,13 @@ public class Page5c_supply extends JFrame implements ActionListener{
         }
     }
     private void Remove(){
+        int idInp = Integer.parseInt(JOptionPane.showInputDialog(delete,
+                "Vaccine ID: ",
+                "Remove Appointment", JOptionPane.INFORMATION_MESSAGE));
+        Vaccine found = DataIO.checkingvac(idInp);
         try{
-            int idInp = Integer.parseInt(JOptionPane.showInputDialog(delete,
-                    "Vaccine ID: ",
-                    "Remove Appointment", JOptionPane.INFORMATION_MESSAGE));
-            Vaccine found = DataIO.checkingvac(idInp);
             if(found != null){
+                Main.vaccine = found;
                 JTextField id = new JTextField(Integer.toString(Main.vaccine.getId()), 5);
                 JTextField name = new JTextField(Main.vaccine.getName());
                 JTextField qty = new JTextField(Integer.toString(Main.vaccine.getQuantity()), 5);
@@ -164,49 +166,57 @@ public class Page5c_supply extends JFrame implements ActionListener{
             int idInp = Integer.parseInt(JOptionPane.showInputDialog(edit, "Vaccine ID : ", "Edit Vaccine", JOptionPane.INFORMATION_MESSAGE));
             if(idInp > 0) {
                 Vaccine found = DataIO.checkingvac(idInp);
-                Main.vaccine = found;
-            }
-            JTextField id = new JTextField(Integer.toString(Main.vaccine.getId()), 5);
-            JTextField name = new JTextField(Main.vaccine.getName());
-            JTextField qty = new JTextField(Integer.toString(Main.vaccine.getQuantity()), 5);
-            JTextField dose = new JTextField(Integer.toString(Main.vaccine.getDose()), 5);
-            Centre[] centres = {Centre.CentreA,Centre.CentreB,Centre.CentreC,Centre.CentreD,Centre.CentreE};
-            JComboBox centre = new JComboBox(centres);
-            centre.setSelectedItem(Main.vaccine.getCentre());
+                if(found != null) {
+                    Main.vaccine = found;
 
-            Object[] message = {
-                    "Vaccine ID: ", id,
-                    "Vaccine Name: ", name,
-                    "Vaccine Quantity (in Mil): ", qty,
-                    "Vaccine Dose: ", dose,
-                    "Vaccination Centre: ", centre,
-            };
-            id.setEditable(false);
+                    JTextField id = new JTextField(Integer.toString(Main.vaccine.getId()), 5);
+                    JTextField name = new JTextField(Main.vaccine.getName());
+                    JTextField qty = new JTextField(Integer.toString(Main.vaccine.getQuantity()), 5);
+                    JTextField dose = new JTextField(Integer.toString(Main.vaccine.getDose()), 5);
+                    Centre[] centres = {Centre.CentreA, Centre.CentreB, Centre.CentreC, Centre.CentreD, Centre.CentreE};
+                    JComboBox<Centre> centre = new JComboBox<Centre>(centres);
+                    centre.setSelectedItem(Main.vaccine.getCentre());
 
-            int option = JOptionPane.showConfirmDialog(edit, message, "Modify Appointment", JOptionPane.OK_CANCEL_OPTION);
+                    Object[] message = {
+                            "Vaccine ID: ", id,
+                            "Vaccine Name: ", name,
+                            "Vaccine Quantity (in Mil): ", qty,
+                            "Vaccine Dose: ", dose,
+                            "Vaccination Centre: ", centre,
+                    };
+                    id.setEditable(false);
 
-            String nmInp = name.getText();
-            int qtyInp = Integer.parseInt(qty.getText());
-            int doseInp = Integer.parseInt(dose.getText());
-            Centre cntInp = (Centre) centre.getSelectedItem();
+                    int option = JOptionPane.showConfirmDialog(edit, message, "Modify Appointment", JOptionPane.OK_CANCEL_OPTION);
 
-            if(option == JOptionPane.OK_OPTION){
-                Vaccine foundcen = DataIO.checkingvaccen(nmInp,cntInp);
-                if(foundcen == null) {
-                    Main.vaccine.setName(nmInp);
-                    Main.vaccine.setQuantity(qtyInp);
-                    Main.vaccine.setDose(doseInp);
-                    Main.vaccine.setCentre(cntInp);
-                    DataIO.write();
-                    JOptionPane.showMessageDialog(edit, "Record Updated");
-                    setVisible(true);
+                    String nmInp = name.getText();
+                    int qtyInp = Integer.parseInt(qty.getText());
+                    int doseInp = Integer.parseInt(dose.getText());
+                    Centre cntInp = (Centre) centre.getSelectedItem();
+
+                    if (option == JOptionPane.OK_OPTION) {
+                        Vaccine foundcen = DataIO.checkingvaccen(nmInp, cntInp);
+                        if (foundcen == null) {
+                            Main.vaccine.setName(nmInp);
+                            Main.vaccine.setQuantity(qtyInp);
+                            Main.vaccine.setDose(doseInp);
+                            Main.vaccine.setCentre(cntInp);
+                            DataIO.write();
+                            JOptionPane.showMessageDialog(edit, "Record Updated");
+                            setVisible(true);
+                        } else {
+                            JOptionPane.showMessageDialog(add, "This Centre already has the same vaccine!");
+                            setVisible(true);
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(edit, "Record Not Updated");
+                        setVisible(true);
+                    }
                 }else{
-                    JOptionPane.showMessageDialog(add, "This Centre already has the same vaccine!");
+                    JOptionPane.showMessageDialog(edit, "Vaccine ID not found");
                     setVisible(true);
                 }
             }else{
-                JOptionPane.showMessageDialog(edit, "Record Not Updated");
-                setVisible(true);
+                throw new Exception();
             }
         }catch (Exception ex){
             JOptionPane.showMessageDialog(edit, "Please Try Again");
@@ -241,7 +251,7 @@ public class Page5c_supply extends JFrame implements ActionListener{
         DefaultTableModel z = new DefaultTableModel(data, columnNames);
         JTable z1 = new JTable(z);
 
-        TableRowSorter sorter = new TableRowSorter(z1.getModel()); //sort
+        TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(z1.getModel()); //sort
         z1.setRowSorter(sorter);
         List<RowSorter.SortKey> sortKeys = new ArrayList<>();
         int index = 0;
@@ -273,33 +283,40 @@ public class Page5c_supply extends JFrame implements ActionListener{
     }
     private void Search(){
         try{
-            int idInp = Integer.parseInt(JOptionPane.showInputDialog(search, "Vaccine ID : ", "Modify Appointmnet", JOptionPane.INFORMATION_MESSAGE));
+            int idInp = Integer.parseInt(JOptionPane.showInputDialog(search, "Vaccine ID : ", "Search Appointment", JOptionPane.INFORMATION_MESSAGE));
             if(idInp > 0) {
                 Vaccine found = DataIO.checkingvac(idInp);
-                Main.vaccine = found;
+                if(found != null) {
+                    Main.vaccine = found;
 
-                JTextField id = new JTextField(Integer.toString(Main.vaccine.getId()), 5);
-                JTextField name = new JTextField(Main.vaccine.getName());
-                JTextField qty = new JTextField(Integer.toString(Main.vaccine.getQuantity()), 5);
-                JTextField dose = new JTextField(Integer.toString(Main.vaccine.getDose()), 5);
-                JTextField centre = new JTextField(Main.vaccine.getCentre().toString(), 5);
+                    JTextField id = new JTextField(Integer.toString(Main.vaccine.getId()), 5);
+                    JTextField name = new JTextField(Main.vaccine.getName());
+                    JTextField qty = new JTextField(Integer.toString(Main.vaccine.getQuantity()), 5);
+                    JTextField dose = new JTextField(Integer.toString(Main.vaccine.getDose()), 5);
+                    JTextField centre = new JTextField(Main.vaccine.getCentre().toString(), 5);
 
-                Object[] message = {
-                        "Vaccine ID: ", id,
-                        "Vaccine Name: ", name,
-                        "Vaccine Quantity (in Mil): ", qty,
-                        "Vaccine Dose: ", dose,
-                        "Vaccination Centre: ", centre,
-                };
+                    Object[] message = {
+                            "Vaccine ID: ", id,
+                            "Vaccine Name: ", name,
+                            "Vaccine Quantity (in Mil): ", qty,
+                            "Vaccine Dose: ", dose,
+                            "Vaccination Centre: ", centre,
+                    };
 
-                id.setEditable(false);
-                name.setEditable(false);
-                qty.setEditable(false);
-                dose.setEditable(false);
-                centre.setEditable(false);
+                    id.setEditable(false);
+                    name.setEditable(false);
+                    qty.setEditable(false);
+                    dose.setEditable(false);
+                    centre.setEditable(false);
 
-                JOptionPane.showMessageDialog(search, message, "View Appointment", JOptionPane.DEFAULT_OPTION);
-                setVisible(true);
+                    JOptionPane.showMessageDialog(search, message, "Search Appointment", JOptionPane.INFORMATION_MESSAGE);
+                    setVisible(true);
+                }else{
+                    JOptionPane.showMessageDialog(search, "Vaccine ID not found");
+                    setVisible(true);
+                }
+            }else{
+                throw new Exception();
             }
         }catch (Exception ex){
             JOptionPane.showMessageDialog(search, "Please Try Again");

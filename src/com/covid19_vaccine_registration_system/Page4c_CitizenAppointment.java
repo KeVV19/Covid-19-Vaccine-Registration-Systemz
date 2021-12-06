@@ -7,7 +7,6 @@ import javax.swing.table.TableRowSorter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +16,6 @@ public class Page4c_CitizenAppointment extends JFrame implements ActionListener 
             setVisible(false);
             MakeApp();
         }else if(e.getSource() == viewApp){
-            setVisible(false);
             ViewApp();
         }else if(e.getSource() == compApp){
             setVisible(false);
@@ -71,7 +69,6 @@ public class Page4c_CitizenAppointment extends JFrame implements ActionListener 
 
             try {
                 ArrayList<String> vaclist = new ArrayList<String>();
-
                 JComboBox<String> vacname = new JComboBox<String>();
 
                 for (int i = 0; i < DataIO.allVaccine.size(); i++) {
@@ -82,6 +79,7 @@ public class Page4c_CitizenAppointment extends JFrame implements ActionListener 
                 }
 
                 ArrayList<Integer> idlist = new ArrayList<Integer>();
+                JComboBox<Integer> idBox = new JComboBox<Integer>();
 
                 for (int o = 0; o < DataIO.allAppointment.size(); o++) {
                     Appointment app = DataIO.allAppointment.get(o);
@@ -91,7 +89,6 @@ public class Page4c_CitizenAppointment extends JFrame implements ActionListener 
                 }
 
                 if (vaclist.size() != 0 && idlist.size() != 0) {
-
                     for(int ii = 0; ii < vaclist.size(); ii++) {
                         vacname.addItem(vaclist.get(ii));
                     }
@@ -118,8 +115,6 @@ public class Page4c_CitizenAppointment extends JFrame implements ActionListener 
 
                     Panel y4 = new Panel();
                     y4.setLayout(new FlowLayout());
-
-                    JComboBox<Integer> idBox = new JComboBox<Integer>();
 
                     String[] columnNames = {"ID", "Centre", "Day", "Time"};
                     String[][] data = new String[size][4];
@@ -163,7 +158,7 @@ public class Page4c_CitizenAppointment extends JFrame implements ActionListener 
                     y4.add(cancel);
 
                     ok.addActionListener(new ActionListener() {
-                        /*@Override*/
+                        @Override
                         public void actionPerformed(ActionEvent e) {
                             String vaccine = (String) vacname.getSelectedItem();
                             Integer idSelect = (Integer) idBox.getSelectedItem();
@@ -186,7 +181,7 @@ public class Page4c_CitizenAppointment extends JFrame implements ActionListener 
                     });
 
                     cancel.addActionListener(new ActionListener() {
-                        /*@Override*/
+                        @Override
                         public void actionPerformed(ActionEvent e) {
                             x.setVisible(false);
                             setVisible(true);
@@ -208,7 +203,6 @@ public class Page4c_CitizenAppointment extends JFrame implements ActionListener 
         }else{
             JOptionPane.showMessageDialog(makeApp, "You have an unattended appointment");
             setVisible(true);
-
         }
     }
 
@@ -237,6 +231,7 @@ public class Page4c_CitizenAppointment extends JFrame implements ActionListener 
             time.setEditable(false);
             vaccine.setEditable(false);
 
+            setVisible(true);
             JOptionPane.showConfirmDialog(viewApp, message, "View Appointment", JOptionPane.DEFAULT_OPTION);
             setVisible(true);
         }
@@ -248,28 +243,9 @@ public class Page4c_CitizenAppointment extends JFrame implements ActionListener 
             JOptionPane.showMessageDialog(compApp, "You do not have any appointment");
             setVisible(true);
         }else{
-            JTextField id = new JTextField(Integer.toString(Main.clogin.getMyCitAppointment().get(s - 1).getId()), 5);
-            JTextField centre = new JTextField(Main.clogin.getMyCitAppointment().get(s - 1).getCentre().toString());
-            JTextField day = new JTextField(Main.clogin.getMyCitAppointment().get(s - 1).getDay().toString());
-            JTextField time = new JTextField(Integer.toString(Main.clogin.getMyCitAppointment().get(s - 1).getTime()));
-            JTextField vaccine = new JTextField(Main.clogin.getMyCitAppointment().get(s - 1).getVaccine());
-
-            Object[] message = {
-                    "Appointment ID: ", id,
-                    "Vaccination Centre : ", centre,
-                    "Day : ", day,
-                    "Time (Hour) : ", time,
-                    "Vaccine : ", vaccine,
-                    "\nDo you want to complete this appointment: "
-            };
-            id.setEditable(false);
-            centre.setEditable(false);
-            day.setEditable(false);
-            time.setEditable(false);
-            vaccine.setEditable(false);
-
             try {
-                int option = JOptionPane.showConfirmDialog(compApp, message, "Complete Appointment", JOptionPane.OK_CANCEL_OPTION);
+                int option = JOptionPane.showConfirmDialog(compApp, "Do you want to complete current appointment?",
+                        "Complete Appointment", JOptionPane.OK_CANCEL_OPTION);
                 if(option == JOptionPane.OK_OPTION) {
                     String confirm = JOptionPane.showInputDialog("Enter your Citizen ID to complete appointment: ");
                     if (Main.clogin.getCitizenID() == Integer.parseInt(confirm)) {
@@ -298,16 +274,27 @@ public class Page4c_CitizenAppointment extends JFrame implements ActionListener 
             JOptionPane.showMessageDialog(compApp, "You do not have any appointment");
             setVisible(true);
         }else{
-            CitAppointmentMade found = DataIO.checkingcitappmd(Main.clogin.getMyCitAppointment().get(s-1).getId(),Main.clogin.getUsername());
-            if(found != null){
-                Main.clogin.getMyCitAppointment().remove(found);
-                DataIO.allCitAppointmentMade.remove(found);
-                DataIO.write();
-                JOptionPane.showMessageDialog(compApp, "Your Appointment have been Canceled!");
+            try {
+                int option = JOptionPane.showConfirmDialog(cancelApp, "Do you want to cancel current appointment?",
+                        "Cancel Appointment", JOptionPane.OK_CANCEL_OPTION);
+                if(option == JOptionPane.OK_OPTION) {
+                    CitAppointmentMade found = DataIO.checkingcitappmd(Main.clogin.getMyCitAppointment().get(s - 1).getId(), Main.clogin.getUsername());
+                    if (found != null) {
+                        Main.clogin.getMyCitAppointment().remove(found);
+                        DataIO.allCitAppointmentMade.remove(found);
+                        DataIO.write();
+                        JOptionPane.showMessageDialog(cancelApp, "Your Appointment have been Canceled!");
 
+                        setVisible(true);
+                    } else {
+                        JOptionPane.showMessageDialog(cancelApp, "Please try again!");
+                    }
+                }else{
+                    setVisible(true);
+                }
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(cancelApp, "Please try again!");
                 setVisible(true);
-            }else{
-                JOptionPane.showMessageDialog(compApp, "Please try again!");
             }
         }
     }

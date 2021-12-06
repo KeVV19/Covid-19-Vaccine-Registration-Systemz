@@ -14,10 +14,11 @@ public class Page4a_Citizen extends JFrame implements ActionListener {
             Main.first.setVisible(true);
 
         } else if (e.getSource() == profile) {
+
             JTextField username = new JTextField(Main.clogin.getUsername(), 16);
             JTextField password = new JTextField(Main.clogin.getPassword(), 16);
             Gender[] genders = {Gender.Male, Gender.Female};
-            JComboBox gender = new JComboBox(genders);
+            JComboBox<Gender> gender = new JComboBox<Gender>(genders);
             gender.setSelectedItem(Main.clogin.getGender());
             JTextField age = new JTextField(Integer.toString(Main.clogin.getAge()), 5);
             JTextField citID = new JTextField(Integer.toString(Main.clogin.getCitizenID()), 16);
@@ -110,8 +111,8 @@ public class Page4a_Citizen extends JFrame implements ActionListener {
         logout.setPreferredSize(new Dimension(75,50));
 
         add(profile);
-        add(status);
         add(appointment);
+        add(status);
         add(logout);
 
         profile.addActionListener(this);

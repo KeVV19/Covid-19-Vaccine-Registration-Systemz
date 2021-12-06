@@ -1,32 +1,24 @@
-kevin
-2
-CentreA
-Monday
-17
-Sinovac
+celma
+6
+CentreC
+Thursday
+11
+SputnikV
 true
 
-ff
-2
-CentreA
-Monday
-17
-Sputnik
+dani
+6
+CentreC
+Thursday
+11
+SputnikV
 true
 
-ff
-2
-CentreA
-Monday
-17
-Pfizer
-true
-
-ff
+dani
 4
 CentreB
-Friday
-17
+Monday
+14
 Pfizer
 true
 

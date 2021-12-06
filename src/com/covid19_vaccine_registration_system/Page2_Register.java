@@ -4,18 +4,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Scanner;
 
 public class Page2_Register extends JFrame implements ActionListener {
-
-    Scanner sc = new Scanner(System.in);
-
     public void actionPerformed(ActionEvent e){
         if(e.getSource() == citizen){
             JTextField username = new JTextField(16);
             JTextField password = new JPasswordField(16);
             Gender[] genders = {Gender.Male, Gender.Female};
-            JComboBox gender = new JComboBox(genders);
+            JComboBox<Gender> gender = new JComboBox<Gender>(genders);
             JTextField age = new JTextField(5);
             JTextField citID = new JTextField(16);
 
@@ -34,6 +30,9 @@ public class Page2_Register extends JFrame implements ActionListener {
                     String psInput = password.getText();
                     Gender gdInput = (Gender) gender.getSelectedItem();
                     int ageInput = Integer.parseInt(age.getText());
+                    if (ageInput < 0 || ageInput > 100){
+                        throw new Exception();
+                    }
                     int vacInput = 0;
                     int citIDInput = Integer.parseInt(citID.getText());
 
@@ -57,7 +56,7 @@ public class Page2_Register extends JFrame implements ActionListener {
             JTextField username = new JTextField(16);
             JTextField password = new JPasswordField(16);
             Gender[] genders = {Gender.Male, Gender.Female};
-            JComboBox gender = new JComboBox(genders);
+            JComboBox<Gender> gender = new JComboBox<Gender>(genders);
             JTextField age = new JTextField(5);
             JTextField passportNum = new JTextField(16);
 
@@ -66,16 +65,19 @@ public class Page2_Register extends JFrame implements ActionListener {
                     "Password: ", password,
                     "Gender : ", gender,
                     "Age : ", age,
-                    "Passport ID : ", passportNum
+                    "Passport Number : ", passportNum
             };
 
             int option = JOptionPane.showConfirmDialog(null, message, "NonCitizen Register", JOptionPane.OK_CANCEL_OPTION);
-            if(option == JOptionPane.OK_OPTION) {
-                try {
+            try {
+                if (option == JOptionPane.OK_OPTION) {
                     String nmInput = username.getText();
                     String psInput = password.getText();
                     Gender gdInput = (Gender) gender.getSelectedItem();
                     int ageInput = Integer.parseInt(age.getText());
+                    if (ageInput < 0 || ageInput > 100) {
+                        throw new Exception();
+                    }
                     int passportInput = Integer.parseInt(passportNum.getText());
 
                     NonCitizen found = DataIO.checkingn(nmInput);
@@ -87,11 +89,11 @@ public class Page2_Register extends JFrame implements ActionListener {
                     } else {
                         JOptionPane.showMessageDialog(nCitizen, "The username has been used!");
                     }
-                }catch(Exception ex){
-                    JOptionPane.showMessageDialog(citizen, "Incorrect Input, Please Try Again");
+                } else {
+                    setVisible(true);
                 }
-            }else{
-
+            }catch (Exception ex){
+                JOptionPane.showMessageDialog(nCitizen, "Incorrect Input, Please Try Again");
             }
 
         } else if (e.getSource() == admin) {
@@ -101,7 +103,7 @@ public class Page2_Register extends JFrame implements ActionListener {
                     JTextField username = new JTextField(16);
                     JTextField password = new JPasswordField(16);
                     Gender[] genders = {Gender.Male, Gender.Female};
-                    JComboBox gender = new JComboBox(genders);
+                    JComboBox<Gender> gender = new JComboBox<Gender>(genders);
                     JTextField age = new JTextField(5);
 
                     Object[] message = {
@@ -112,25 +114,32 @@ public class Page2_Register extends JFrame implements ActionListener {
                     };
 
                     int option = JOptionPane.showConfirmDialog(null, message, "Admin Register", JOptionPane.OK_CANCEL_OPTION);
-                    String nmInput = username.getText();
-                    String psInput = password.getText();
-                    Gender gdInput = (Gender) gender.getSelectedItem();
-                    int ageInput = Integer.parseInt(age.getText());
+                    if(option == JOptionPane.OK_OPTION) {
+                        String nmInput = username.getText();
+                        String psInput = password.getText();
+                        Gender gdInput = (Gender) gender.getSelectedItem();
+                        int ageInput = Integer.parseInt(age.getText());
+                        if (ageInput < 0 || ageInput > 100) {
+                            throw new Exception();
+                        }
 
-                    Admin found = DataIO.checkinga(nmInput);
-                    if (found == null) {
-                        Admin a = new Admin(nmInput, psInput, gdInput, ageInput);
-                        DataIO.allAdmin.add(a);
-                        DataIO.write();
-                        JOptionPane.showMessageDialog(null, "Record Successfully Saved");
-                    } else {
-                        JOptionPane.showMessageDialog(admin, "The username has been used!");
+                        Admin found = DataIO.checkinga(nmInput);
+                        if (found == null) {
+                            Admin a = new Admin(nmInput, psInput, gdInput, ageInput);
+                            DataIO.allAdmin.add(a);
+                            DataIO.write();
+                            JOptionPane.showMessageDialog(null, "Record Successfully Saved");
+                        } else {
+                            JOptionPane.showMessageDialog(admin, "The username has been used!");
+                        }
+                    }else{
+                        setVisible(true);
                     }
                 } else {
                     JOptionPane.showMessageDialog(admin, "Wrong password!");
                 }
             }catch (Exception ex){
-                setVisible(true);
+                JOptionPane.showMessageDialog(admin, "Incorrect Input, Please Try Again");
             }
 
         } else if (e.getSource() == back) {

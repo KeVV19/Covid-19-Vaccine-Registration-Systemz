@@ -70,7 +70,6 @@ public class Page4d_NonCitizenAppointment extends JFrame implements ActionListen
 
             try {
                 ArrayList<String> vaclist = new ArrayList<String>();
-
                 JComboBox<String> vacname = new JComboBox<String>();
 
                 for (int i = 0; i < DataIO.allVaccine.size(); i++) {
@@ -90,7 +89,6 @@ public class Page4d_NonCitizenAppointment extends JFrame implements ActionListen
                 }
 
                 if (vaclist.size() != 0 && idlist.size() != 0) {
-
                     for (int ii = 0; ii < vaclist.size(); ii++) {
                         vacname.addItem(vaclist.get(ii));
                     }
@@ -162,7 +160,7 @@ public class Page4d_NonCitizenAppointment extends JFrame implements ActionListen
                     y4.add(cancel);
 
                     ok.addActionListener(new ActionListener() {
-                        /*@Override*/
+                        @Override
                         public void actionPerformed(ActionEvent e) {
                             String vaccine = (String) vacname.getSelectedItem();
                             Integer idSelect = (Integer) idBox.getSelectedItem();
@@ -207,7 +205,6 @@ public class Page4d_NonCitizenAppointment extends JFrame implements ActionListen
         }else{
             JOptionPane.showMessageDialog(makeApp, "You have an unattended appointment");
             setVisible(true);
-
         }
     }
 
@@ -248,28 +245,9 @@ public class Page4d_NonCitizenAppointment extends JFrame implements ActionListen
             JOptionPane.showMessageDialog(compApp, "You do not have any appointment");
             setVisible(true);
         }else{
-            JTextField id = new JTextField(Integer.toString(Main.nclogin.getMyNCitAppointment().get(s - 1).getId()), 5);
-            JTextField centre = new JTextField(Main.nclogin.getMyNCitAppointment().get(s - 1).getCentre().toString());
-            JTextField day = new JTextField(Main.nclogin.getMyNCitAppointment().get(s - 1).getDay().toString());
-            JTextField time = new JTextField(Integer.toString(Main.nclogin.getMyNCitAppointment().get(s - 1).getTime()));
-            JTextField vaccine = new JTextField(Main.nclogin.getMyNCitAppointment().get(s - 1).getVaccine());
-
-            Object[] message = {
-                    "Appointment ID: ", id,
-                    "Vaccination Centre : ", centre,
-                    "Day : ", day,
-                    "Time (Hour) : ", time,
-                    "Vaccine : ", vaccine,
-                    "\nDo you want to complete this appointment: "
-            };
-            id.setEditable(false);
-            centre.setEditable(false);
-            day.setEditable(false);
-            time.setEditable(false);
-            vaccine.setEditable(false);
-
             try {
-                int option = JOptionPane.showConfirmDialog(compApp, message, "Complete Appointment", JOptionPane.OK_CANCEL_OPTION);
+                int option = JOptionPane.showConfirmDialog(compApp, "Do you want to complete current appointment?",
+                        "Complete Appointment", JOptionPane.OK_CANCEL_OPTION);
                 if(option == JOptionPane.OK_OPTION) {
                     String confirm = JOptionPane.showInputDialog("Enter your Passport Number to complete appointment: ");
                     if (Main.nclogin.getPassportNum() == Integer.parseInt(confirm)) {
@@ -298,16 +276,27 @@ public class Page4d_NonCitizenAppointment extends JFrame implements ActionListen
             JOptionPane.showMessageDialog(compApp, "You do not have any appointment");
             setVisible(true);
         }else{
-            NCitAppointmentMade found = DataIO.checkingncitappmd(Main.nclogin.getMyNCitAppointment().get(s-1).getId(),Main.nclogin.getUsername());
-            if(found != null){
-                Main.nclogin.getMyNCitAppointment().remove(found);
-                DataIO.allNCitAppointmentMade.remove(found);
-                DataIO.write();
-                JOptionPane.showMessageDialog(compApp, "Your Appointment have been Canceled!");
+            try {
+                int option = JOptionPane.showConfirmDialog(cancelApp, "Do you want to cancel current appointment?",
+                        "Cancel Appointment", JOptionPane.OK_CANCEL_OPTION);
+                if(option == JOptionPane.OK_OPTION) {
+                    NCitAppointmentMade found = DataIO.checkingncitappmd(Main.nclogin.getMyNCitAppointment().get(s - 1).getId(), Main.nclogin.getUsername());
+                    if (found != null) {
+                        Main.nclogin.getMyNCitAppointment().remove(found);
+                        DataIO.allNCitAppointmentMade.remove(found);
+                        DataIO.write();
+                        JOptionPane.showMessageDialog(compApp, "Your Appointment have been Canceled!");
 
+                        setVisible(true);
+                    } else {
+                        JOptionPane.showMessageDialog(compApp, "Please try again!");
+                    }
+                }else{
+                    setVisible(true);
+                }
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(cancelApp, "Please try again!");
                 setVisible(true);
-            }else{
-                JOptionPane.showMessageDialog(compApp, "Please try again!");
             }
         }
     }

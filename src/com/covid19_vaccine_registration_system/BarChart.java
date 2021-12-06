@@ -3,8 +3,6 @@ package com.covid19_vaccine_registration_system;
 import javax.swing.*;
 import java.awt.*;
 
-// Reference Code : http://www.java2s.com/Code/Java/2D-Graphics-GUI/Simplebarchart.htm
-
 public class BarChart extends JPanel {
     private double[] values;
     private String[] names;

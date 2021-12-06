@@ -16,7 +16,7 @@ public class Page4b_NonCitizen extends JFrame implements ActionListener {
             JTextField username = new JTextField(Main.nclogin.getUsername(), 16);
             JTextField password = new JTextField(Main.nclogin.getPassword(), 16);
             Gender[] genders = {Gender.Male, Gender.Female};
-            JComboBox gender = new JComboBox(genders);
+            JComboBox<Gender> gender = new JComboBox<Gender>(genders);
             gender.setSelectedItem(Main.nclogin.getGender());
             JTextField age = new JTextField(Integer.toString(Main.nclogin.getAge()), 5);
             JTextField passNum = new JTextField(Integer.toString(Main.nclogin.getPassportNum()), 16);
