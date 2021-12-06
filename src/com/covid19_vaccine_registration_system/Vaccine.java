@@ -12,7 +12,7 @@ public class Vaccine {
         this.name = name;
         this.quantity = quantity;
         this.dose = dose;
-        this. centre = centre;
+        this.centre = centre;
     }
 
     public int getId() {
@@ -48,5 +48,13 @@ public class Vaccine {
     }
     public void setCentre(Centre centre) {
         this.centre = centre;
+    }
+
+    public void updateVaccine(String nmInp, int qtyInp, int doseInp, Centre cntInp){
+        Main.vaccine.setName(nmInp);
+        Main.vaccine.setQuantity(qtyInp);
+        Main.vaccine.setDose(doseInp);
+        Main.vaccine.setCentre(cntInp);
+        DataIO.write();
     }
 }
